@@ -343,7 +343,7 @@
           </div>
           <button class="next-btn">&#10095;</button>
         </div>
-        <div class="status-label">Available</div>
+        <div class="status-label">Active</div>
         <div class="details">
           <h2>$599,000</h2>
           <p class="location">1234 Elm Street, Springfield, IL</p>
