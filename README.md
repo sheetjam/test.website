@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>InSight Services</title>
-  <link rel="stylesheet" href=".github/style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
