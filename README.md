@@ -372,7 +372,7 @@
         </div>
       </div>
 
-            <div class="listing-card pending">
+            <div class="listing-card sold">
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
@@ -433,7 +433,7 @@
         </div>
       </div>
 
-            <div class="listing-card under-contract">
+            <div class="listing-card sold">
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
@@ -459,7 +459,7 @@
         </div>
       </div>
 
-            <div class="listing-card available">
+            <div class="listing-card sold">
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
