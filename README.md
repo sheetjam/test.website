@@ -426,7 +426,7 @@
         </div>
       </div>
     </div>
-    <p class="listings-top" >Click here to view all available listings
+    <p class="listings-top" >Click here to view all listings
     </p>
   </section>
 
