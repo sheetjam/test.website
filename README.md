@@ -12,7 +12,7 @@
     }
 
     body {
-      background: url("pictures/repeattest.jpg") center/cover repeat;
+      background: url("repeattest.jpg") center/cover repeat;
       font-family: Arial, sans-serif;
       color: #333;
       line-height: 1.6;
@@ -289,7 +289,7 @@
   <header>
     <div class="header-top">
       <div class="logo-container">
-        <img src="pictures/emblem3.png" alt="InSight Services Logo" class="logo" />
+        <img src="emblem3.png" alt="InSight Services Logo" class="logo" />
         <h3>Where your dream home becomes reality</h3>
       </div>
       <div class="hamburger" onclick="toggleNav()">&#9776;</div>
@@ -324,9 +324,9 @@
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
-            <img src="pictures/testlisting.jpg" alt="Exterior view" class="slide active" />
-            <img src="pictures/treeman.jpg" alt="Kitchen view" class="slide" />
-            <img src="pictures/tree.png" alt="Backyard view" class="slide" />
+            <img src="testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="tree.png" alt="Backyard view" class="slide" />
           </div>
           <button class="next-btn">&#10095;</button>
         </div>
@@ -350,9 +350,9 @@
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
-            <img src="pictures/testlisting.jpg" alt="Exterior view" class="slide active" />
-            <img src="pictures/treeman.jpg" alt="Kitchen view" class="slide" />
-            <img src="pictures/tree.png" alt="Backyard view" class="slide" />
+            <img src="testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="tree.png" alt="Backyard view" class="slide" />
           </div>
           <button class="next-btn">&#10095;</button>
         </div>
@@ -376,9 +376,9 @@
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
-            <img src="pictures/testlisting.jpg" alt="Exterior view" class="slide active" />
-            <img src="pictures/treeman.jpg" alt="Kitchen view" class="slide" />
-            <img src="pictures/tree.png" alt="Backyard view" class="slide" />
+            <img src="testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="tree.png" alt="Backyard view" class="slide" />
           </div>
           <button class="next-btn">&#10095;</button>
         </div>
@@ -411,9 +411,9 @@
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
-            <img src="pictures/testlisting.jpg" alt="Exterior view" class="slide active" />
-            <img src="pictures/treeman.jpg" alt="Kitchen view" class="slide" />
-            <img src="pictures/tree.png" alt="Backyard view" class="slide" />
+            <img src="testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="tree.png" alt="Backyard view" class="slide" />
           </div>
           <button class="next-btn">&#10095;</button>
         </div>
@@ -437,9 +437,9 @@
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
-            <img src="pictures/testlisting.jpg" alt="Exterior view" class="slide active" />
-            <img src="pictures/treeman.jpg" alt="Kitchen view" class="slide" />
-            <img src="pictures/tree.png" alt="Backyard view" class="slide" />
+            <img src="testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="tree.png" alt="Backyard view" class="slide" />
           </div>
           <button class="next-btn">&#10095;</button>
         </div>
@@ -463,9 +463,9 @@
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
-            <img src="pictures/testlisting.jpg" alt="Exterior view" class="slide active" />
-            <img src="pictures/treeman.jpg" alt="Kitchen view" class="slide" />
-            <img src="pictures/tree.png" alt="Backyard view" class="slide" />
+            <img src="testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="tree.png" alt="Backyard view" class="slide" />
           </div>
           <button class="next-btn">&#10095;</button>
         </div>
