@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -190,19 +189,7 @@
       color: white;
     }
 
-    .listing-card.sold .status-label {
-      background-color: rgb(175, 175, 175);
-    }
-
-    .listing-card.under-contract .status-label {
-      background-color: rgb(175, 175, 175);
-    }
-
-    .listing-card.available .status-label {
-      background-color: rgb(175, 175, 175);
-    }
-
-    .listing-card.penting .status-label {
+    .listing-card.status .status-label {
       background-color: rgb(175, 175, 175);
     }
 
@@ -320,7 +307,7 @@
     <div class="listing-grid">
 
       <!-- Listing with slider and Sold status -->
-      <div class="listing-card sold">
+      <div class="listing-card status">
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
@@ -346,7 +333,7 @@
         </div>
       </div>
 
-            <div class="listing-card sold">
+            <div class="listing-card status">
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
@@ -356,7 +343,7 @@
           </div>
           <button class="next-btn">&#10095;</button>
         </div>
-        <div class="status-label">Sold</div>
+        <div class="status-label">Available</div>
         <div class="details">
           <h2>$599,000</h2>
           <p class="location">1234 Elm Street, Springfield, IL</p>
@@ -372,7 +359,7 @@
         </div>
       </div>
 
-            <div class="listing-card sold">
+            <div class="listing-card status">
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
@@ -382,7 +369,7 @@
           </div>
           <button class="next-btn">&#10095;</button>
         </div>
-        <div class="status-label">Sold</div>
+        <div class="status-label">Under-contract</div>
         <div class="details">
           <h2>$599,000</h2>
           <p class="location">1234 Elm Street, Springfield, IL</p>
@@ -407,7 +394,33 @@
     <div class="listing-grid">
 
       <!-- Listing with slider and Sold status -->
-      <div class="listing-card sold">
+      <div class="listing-card status">
+        <div class="image-gallery-slider">
+          <button class="prev-btn">&#10094;</button>
+          <div class="slider-images">
+            <img src="testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="tree.png" alt="Backyard view" class="slide" />
+          </div>
+          <button class="next-btn">&#10095;</button>
+        </div>
+        <div class="status-label">Pending</div>
+        <div class="details">
+          <h2>$599,000</h2>
+          <p class="location">1234 Elm Street, Springfield, IL</p>
+          <p class="description">Beautiful 4-bedroom family home...</p>
+          <ul class="features">
+            <li>🛏️ 4 Beds</li>
+            <li>🛁 3 Baths</li>
+            <li>📐 2,400 sqft</li>
+            <li>🌳 Large backyard</li>
+            <li>🚗 2-car garage</li>
+          </ul>
+          <a href="#" class="btn">Schedule a Tour</a>
+        </div>
+      </div>
+
+            <div class="listing-card status">
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
@@ -433,33 +446,7 @@
         </div>
       </div>
 
-            <div class="listing-card sold">
-        <div class="image-gallery-slider">
-          <button class="prev-btn">&#10094;</button>
-          <div class="slider-images">
-            <img src="testlisting.jpg" alt="Exterior view" class="slide active" />
-            <img src="treeman.jpg" alt="Kitchen view" class="slide" />
-            <img src="tree.png" alt="Backyard view" class="slide" />
-          </div>
-          <button class="next-btn">&#10095;</button>
-        </div>
-        <div class="status-label">Sold</div>
-        <div class="details">
-          <h2>$599,000</h2>
-          <p class="location">1234 Elm Street, Springfield, IL</p>
-          <p class="description">Beautiful 4-bedroom family home...</p>
-          <ul class="features">
-            <li>🛏️ 4 Beds</li>
-            <li>🛁 3 Baths</li>
-            <li>📐 2,400 sqft</li>
-            <li>🌳 Large backyard</li>
-            <li>🚗 2-car garage</li>
-          </ul>
-          <a href="#" class="btn">Schedule a Tour</a>
-        </div>
-      </div>
-
-            <div class="listing-card sold">
+            <div class="listing-card status">
         <div class="image-gallery-slider">
           <button class="prev-btn">&#10094;</button>
           <div class="slider-images">
