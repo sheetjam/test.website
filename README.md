@@ -1,13 +1,10 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>InSight Services</title>
   <style>
-    
-    /* ========= Base Styles ========= */
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,19 +12,14 @@
     }
 
     body {
-      background: url("repeattest.jpg") center/cover repeat;
+      background: url("pictures/repeattest.jpg") center/cover repeat;
       font-family: Arial, sans-serif;
       color: #333;
       line-height: 1.6;
     }
 
     header {
-      background: linear-gradient(
-        90deg,
-        rgba(0, 119, 204, 1) 0%,
-        rgba(0, 139, 204, 0.87) 38%,
-        rgba(0, 180, 204, 1) 100%
-      );
+      background: linear-gradient(90deg, rgba(0, 119, 204, 1) 0%, rgba(0, 139, 204, 0.87) 38%, rgba(0, 180, 204, 1) 100%);
       color: #fff;
       padding: .5em;
     }
@@ -50,8 +42,6 @@
       height: auto;
       max-width: 100%;
     }
-
-    /* ========= Navigation ========= */
 
     .hamburger {
       display: none;
@@ -85,8 +75,6 @@
       border-radius: 5px;
     }
 
-    /* ========= Main Layout ========= */
-
     main {
       display: flex;
       flex-wrap: wrap;
@@ -117,8 +105,6 @@
       margin-top: 1em;
     }
 
-    /* ========= Listings ========= */
-
     .listings-section {
       padding: 1em;
     }
@@ -143,7 +129,6 @@
     .listing-card {
       flex: 1 1 20%;
       max-width: 350px;
-      max-height: fit-content;
       background: white;
       border-radius: 10px;
       overflow: hidden;
@@ -155,16 +140,70 @@
       transform: scale(1.01);
     }
 
-    .image-gallery {
-      width: 100%;
-      height: 300px;
+    .image-gallery-slider {
+      position: relative;
+      max-width: 100%;
       overflow: hidden;
+      margin-bottom: 10px;
     }
 
-    .image-gallery .main-image {
-      width: 100%;
-      height: 100%;
+    .slider-images {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+
+    .slide {
+      min-width: 100%;
+      display: none;
+      border-radius: 8px;
       object-fit: cover;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .prev-btn, .next-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      font-size: 24px;
+      padding: 8px 12px;
+      cursor: pointer;
+      z-index: 1;
+      border-radius: 50%;
+    }
+
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
+
+    .status-label {
+      text-align: center;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin: 0.5em auto;
+      width: fit-content;
+      color: white;
+    }
+
+    .listing-card.sold .status-label {
+      background-color: rgb(175, 175, 175);
+    }
+
+    .listing-card.under-contract .status-label {
+      background-color: rgb(175, 175, 175);
+    }
+
+    .listing-card.available .status-label {
+      background-color: rgb(175, 175, 175);
+    }
+
+    .listing-card.penting .status-label {
+      background-color: rgb(175, 175, 175);
     }
 
     .details {
@@ -218,21 +257,12 @@
       background: #2980b9;
     }
 
-    /* ========= Responsive ========= */
-
     @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-        order: 2;
-      }
+      .hamburger { display: block; order: 2; }
 
-      nav {
-        display: none;
-      }
+      nav { display: none; }
 
-      nav.show {
-        display: block;
-      }
+      nav.show { display: block; }
 
       nav ul {
         flex-direction: column;
@@ -241,9 +271,7 @@
         padding: 0;
       }
 
-      nav li {
-        width: 100%;
-      }
+      nav li { width: 100%; }
 
       nav a {
         display: block;
@@ -252,33 +280,24 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       }
 
-      .logo-container {
-        flex: 1;
-        order: 1;
-      }
-
-      .listing-card {
-        flex: 1 1 100%;
-      }
+      .logo-container { flex: 1; order: 1; }
+      .listing-card { flex: 1 1 100%; }
     }
-
   </style>
 </head>
 <body>
   <header>
     <div class="header-top">
       <div class="logo-container">
-        <img src="emblem3.png" alt="InSight Services Logo" class="logo" />
+        <img src="pictures/emblem3.png" alt="InSight Services Logo" class="logo" />
         <h3>Where your dream home becomes reality</h3>
       </div>
-      <div class="hamburger" onclick="toggleNav()">
-        &#9776;
-      </div>
+      <div class="hamburger" onclick="toggleNav()">&#9776;</div>
     </div>
 
     <nav id="myLinks">
       <ul>
-        <li><a href="#"></a></li>
+        <li><a href="#">Forms</a></li>
         <li><a href="#">Placeholder</a></li>
         <li><a href="#">Locations</a></li>
         <li><a href="contact.htm">Contact</a></li>
@@ -289,31 +308,29 @@
   <main>
     <section class="content">
       <h2>About Us</h2>
-      <p>
-        Thank you for visiting InSight Services. We are a privately owned company
-        specializing in the purchasing and selling of properties. For the last
-        30 years, we have been serving the people of Northeast Florida. We look
-        forward to helping you in your home-buying journey.
-      </p>
-      <p>
-        Additional text can be added here as needed. This is placeholder
-        content.
-      </p>
-      <p>
-        We are available 7 days a week. Please call or text us at
-        <a href="tel:1234567890">123-456-7890</a> or email us at
-        <a href="mailto:thisisatest@gmail.com">thisisatest@gmail.com</a>.
-      </p>
+      <p>Thank you for visiting InSight Services. We are a privately owned company specializing in the purchasing and selling of properties. For the last 30 years, we have been serving the people of Northeast Florida. We look forward to helping you in your home-buying journey.</p>
+      <p>Additional text can be added here as needed. This is placeholder content.</p>
+      <p>We are available 7 days a week. Please call or text us at <a href="tel:1234567890">123-456-7890</a> or email us at <a href="mailto:thisisatest@gmail.com">thisisatest@gmail.com</a>.</p>
     </section>
   </main>
 
+      <p class="listings-top">Here are some recently listed homes</p>
+
   <section class="listings-section">
-    <p class="listings-top">Here are some recently listed homes</p>
     <div class="listing-grid">
-      <div class="listing-card">
-        <div class="image-gallery">
-          <img src="testlisting.jpg" alt="Exterior view of the home at 1234 Elm Street" class="main-image" loading="lazy" />
+
+      <!-- Listing with slider and Sold status -->
+      <div class="listing-card sold">
+        <div class="image-gallery-slider">
+          <button class="prev-btn">&#10094;</button>
+          <div class="slider-images">
+            <img src="pictures/testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="pictures/treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="pictures/tree.png" alt="Backyard view" class="slide" />
+          </div>
+          <button class="next-btn">&#10095;</button>
         </div>
+        <div class="status-label">Sold</div>
         <div class="details">
           <h2>$599,000</h2>
           <p class="location">1234 Elm Street, Springfield, IL</p>
@@ -329,10 +346,17 @@
         </div>
       </div>
 
-      <div class="listing-card">
-        <div class="image-gallery">
-          <img src="testlisting.jpg" alt="Exterior view of the home at 1234 Elm Street" class="main-image" loading="lazy" />
+            <div class="listing-card sold">
+        <div class="image-gallery-slider">
+          <button class="prev-btn">&#10094;</button>
+          <div class="slider-images">
+            <img src="pictures/testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="pictures/treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="pictures/tree.png" alt="Backyard view" class="slide" />
+          </div>
+          <button class="next-btn">&#10095;</button>
         </div>
+        <div class="status-label">Sold</div>
         <div class="details">
           <h2>$599,000</h2>
           <p class="location">1234 Elm Street, Springfield, IL</p>
@@ -347,10 +371,18 @@
           <a href="#" class="btn">Schedule a Tour</a>
         </div>
       </div>
-      <div class="listing-card">
-        <div class="image-gallery">
-          <img src="testlisting.jpg" alt="Exterior view of the home at 1234 Elm Street" class="main-image" loading="lazy" />
+
+            <div class="listing-card pending">
+        <div class="image-gallery-slider">
+          <button class="prev-btn">&#10094;</button>
+          <div class="slider-images">
+            <img src="pictures/testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="pictures/treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="pictures/tree.png" alt="Backyard view" class="slide" />
+          </div>
+          <button class="next-btn">&#10095;</button>
         </div>
+        <div class="status-label">Sold</div>
         <div class="details">
           <h2>$599,000</h2>
           <p class="location">1234 Elm Street, Springfield, IL</p>
@@ -365,15 +397,27 @@
           <a href="#" class="btn">Schedule a Tour</a>
         </div>
       </div>
+
+      <!-- Add more listings below using same structure -->
+
     </div>
   </section>
 
-  <section class="listings-section">
+    <section class="listings-section">
     <div class="listing-grid">
-      <div class="listing-card">
-        <div class="image-gallery">
-          <img src="testlisting.jpg" alt="Exterior view of the home at 1234 Elm Street" class="main-image" loading="lazy" />
+
+      <!-- Listing with slider and Sold status -->
+      <div class="listing-card sold">
+        <div class="image-gallery-slider">
+          <button class="prev-btn">&#10094;</button>
+          <div class="slider-images">
+            <img src="pictures/testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="pictures/treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="pictures/tree.png" alt="Backyard view" class="slide" />
+          </div>
+          <button class="next-btn">&#10095;</button>
         </div>
+        <div class="status-label">Sold</div>
         <div class="details">
           <h2>$599,000</h2>
           <p class="location">1234 Elm Street, Springfield, IL</p>
@@ -389,10 +433,17 @@
         </div>
       </div>
 
-      <div class="listing-card">
-        <div class="image-gallery">
-          <img src="testlisting.jpg" alt="Exterior view of the home at 1234 Elm Street" class="main-image" loading="lazy" />
+            <div class="listing-card under-contract">
+        <div class="image-gallery-slider">
+          <button class="prev-btn">&#10094;</button>
+          <div class="slider-images">
+            <img src="pictures/testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="pictures/treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="pictures/tree.png" alt="Backyard view" class="slide" />
+          </div>
+          <button class="next-btn">&#10095;</button>
         </div>
+        <div class="status-label">Sold</div>
         <div class="details">
           <h2>$599,000</h2>
           <p class="location">1234 Elm Street, Springfield, IL</p>
@@ -407,10 +458,18 @@
           <a href="#" class="btn">Schedule a Tour</a>
         </div>
       </div>
-      <div class="listing-card">
-        <div class="image-gallery">
-          <img src="testlisting.jpg" alt="Exterior view of the home at 1234 Elm Street" class="main-image" loading="lazy" />
+
+            <div class="listing-card available">
+        <div class="image-gallery-slider">
+          <button class="prev-btn">&#10094;</button>
+          <div class="slider-images">
+            <img src="pictures/testlisting.jpg" alt="Exterior view" class="slide active" />
+            <img src="pictures/treeman.jpg" alt="Kitchen view" class="slide" />
+            <img src="pictures/tree.png" alt="Backyard view" class="slide" />
+          </div>
+          <button class="next-btn">&#10095;</button>
         </div>
+        <div class="status-label">Sold</div>
         <div class="details">
           <h2>$599,000</h2>
           <p class="location">1234 Elm Street, Springfield, IL</p>
@@ -425,9 +484,10 @@
           <a href="#" class="btn">Schedule a Tour</a>
         </div>
       </div>
+
+      <!-- Add more listings below using same structure -->
+
     </div>
-    <p class="listings-top" >Click here to view all listings
-    </p>
   </section>
 
   <footer>
@@ -436,9 +496,34 @@
 
   <script>
     function toggleNav() {
-      var nav = document.getElementById("myLinks");
+      const nav = document.getElementById("myLinks");
       nav.classList.toggle("show");
     }
+
+    document.querySelectorAll('.image-gallery-slider').forEach(gallery => {
+      const slides = gallery.querySelectorAll('.slide');
+      const prevBtn = gallery.querySelector('.prev-btn');
+      const nextBtn = gallery.querySelector('.next-btn');
+      let index = 0;
+
+      const updateSlides = () => {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === index);
+        });
+      };
+
+      prevBtn.addEventListener('click', () => {
+        index = (index - 1 + slides.length) % slides.length;
+        updateSlides();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        index = (index + 1) % slides.length;
+        updateSlides();
+      });
+
+      updateSlides(); // Show first image
+    });
   </script>
 </body>
 </html>
