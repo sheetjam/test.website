@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>InSight Services</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     
     /* ========= Base Styles ========= */
@@ -97,7 +96,7 @@
 
     .content {
       flex: 3 1 60%;
-      background: #ffffffcd;
+      background: #ffffffe8;
       padding: 1em;
       border-radius: 5px;
       font-size: 15px;
@@ -128,7 +127,7 @@
       font-size: 1rem;
       text-align: center;
       color: #000;
-      background-color: #ffffffb9;
+      background-color: #ffffffe5;
       border-radius: 5px;
       padding: 0.5em;
       margin-bottom: 1em;
@@ -427,6 +426,8 @@
         </div>
       </div>
     </div>
+    <p class="listings-top" >Click here to view all available listings
+    </p>
   </section>
 
   <footer>
