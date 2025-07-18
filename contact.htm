@@ -57,6 +57,11 @@
     const successMsg = document.getElementById('success');
     const errorMsg = document.getElementById('error');
 
+        function toggleNav() {
+      const nav = document.getElementById("myLinks");
+      nav.classList.toggle("show");
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
