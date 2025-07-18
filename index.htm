@@ -54,19 +54,14 @@ header {
   padding: 0.5em;
 }
 
-.header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 1rem;
-}
 
-.logo-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
 
 .logo {
   width: 70px;
@@ -74,12 +69,33 @@ header {
   max-width: 100%;
 }
 
+.header-top {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 1rem;
+}
+
 .hamburger {
-  display: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
   font-size: 2rem;
   cursor: pointer;
   color: #fff;
+  display: none; /* hide by default */
+  z-index: 10;
 }
+
+/* Show hamburger only on mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+}
+
 
 /* Desktop Navigation */
 nav {
