@@ -256,6 +256,11 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+     function toggleNav() {
+     const nav = document.getElementById("myLinks");
+     nav.classList.toggle("show");
+    }
+
       const formData = new FormData(form);
 
       try {
