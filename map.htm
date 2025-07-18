@@ -134,29 +134,35 @@
       const nav = document.getElementById("myLinks");
       nav.classList.toggle("show");
     }
+/*40.3101352,-76.8738858*/
+const homeListings = [
+    {
+    position: { lat: 40.3101352, lng: -76.8738858 },
+    title: "1508c highpointe dr harrisburg pa",
+    description: "2 bed, 1 bath, $900k"
+  },
+  {
+    position: { lat: 40.7128, lng: -74.0060 },
+    title: "123 Main St, New York, NY 10001",
+    description: "2 bed, 1 bath, $900k"
+  },
+  {
+    position: { lat: 34.0522, lng: -118.2437 },
+    title: "456 Sunset Blvd, Los Angeles, CA 90012",
+    description: "3 bed, 2 bath, $1.2M"
+  },
+  {
+    position: { lat: 41.8781, lng: -87.6298 },
+    title: "789 Lakeshore Dr, Chicago, IL 60601",
+    description: "4 bed, 3 bath, $700k"
+  },
+  {
+    position: { lat: 29.7604, lng: -95.3698 },
+    title: "321 Bayou Rd, Houston, TX 77002",
+    description: "3 bed, 2 bath, $600k"
+  }
+];
 
-    const homeListings = [
-      {
-        position: { lat: 40.7128, lng: -74.0060 },
-        title: "NYC Apartment",
-        description: "2 bed, 1 bath, $900k"
-      },
-      {
-        position: { lat: 34.0522, lng: -118.2437 },
-        title: "LA Condo",
-        description: "3 bed, 2 bath, $1.2M"
-      },
-      {
-        position: { lat: 41.8781, lng: -87.6298 },
-        title: "Chicago House",
-        description: "4 bed, 3 bath, $700k"
-      },
-      {
-        position: { lat: 29.7604, lng: -95.3698 },
-        title: "Houston Home",
-        description: "3 bed, 2 bath, $600k"
-      }
-    ];
 
     function initMap() {
       const centerUS = { lat: 39.8283, lng: -98.5795 };
