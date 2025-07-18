@@ -17,7 +17,7 @@
 
     <nav id="myLinks">
       <ul>
-        <li><a href="index.htm">Home</a></li>
+        <li><a href="README.md">Home</a></li>
         <li><a href="#">Forms</a></li>
         <li><a href="#">Services</a></li>
         <li><a href="#">Locations</a></li>
