@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home Listings Map</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; 
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    #map {
+      flex-grow: 1;
+    }
+    header {
+      background: #0077cc;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Home Listings in the U.S.</h1>
+</header>
+
+<div id="map"></div>
+
+<script>
+  // Sample home listings data with lat, lng, and info
+  const homeListings = [
+    {
+      position: { lat: 40.7128, lng: -74.0060 },
+      title: "NYC Apartment",
+      description: "2 bed, 1 bath, $900k"
+    },
+    {
+      position: { lat: 34.0522, lng: -118.2437 },
+      title: "LA Condo",
+      description: "3 bed, 2 bath, $1.2M"
+    },
+    {
+      position: { lat: 41.8781, lng: -87.6298 },
+      title: "Chicago House",
+      description: "4 bed, 3 bath, $700k"
+    },
+    {
+      position: { lat: 29.7604, lng: -95.3698 },
+      title: "Houston Home",
+      description: "3 bed, 2 bath, $600k"
+    }
+  ];
+
+  function initMap() {
+    // Center of the US roughly
+    const centerUS = { lat: 39.8283, lng: -98.5795 };
+
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 4,
+      center: centerUS,
+    });
+
+    // Add markers for each home listing
+    homeListings.forEach(listing => {
+      const marker = new google.maps.AdvancedMarkerElement({
+        position: listing.position,
+        map: map,
+        title: listing.title
+      });
+
+      const infoWindow = new google.maps.InfoWindow({
+        content: `<h3>${listing.title}</h3><p>${listing.description}</p>`
+      });
+
+      marker.addListener("click", () => {
+        infoWindow.open(map, marker);
+      });
+    });
+  }
+</script>
+
+<!-- Replace YOUR_API_KEY below with your Google Maps API Key -->
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByEsLB2qwxw7UMEhc8Hf9e_TCwp35OpQs&callback=initMap"
+  async defer></script>
+
+</body>
+</html>
