@@ -4,8 +4,184 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact Form with Navigation</title>
-  <link rel="stylesheet" href="contact.css">
+  <style>
+    /* ========== Reset & Base ========== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
+    body {
+      font-family: Arial, sans-serif;
+      background: #a5d9ff;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* ========== Header Layout ========== */
+    header {
+      background: linear-gradient(90deg, rgba(0, 119, 204, 1), rgba(0, 180, 204, 1));
+      color: white;
+    }
+
+    .header-top {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
+      padding: 1rem;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      height: 50px;
+      max-width: 100%;
+    }
+
+    /* Hamburger always top right */
+    .hamburger {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 2rem;
+      cursor: pointer;
+      display: none;
+      z-index: 10;
+      user-select: none;
+    }
+
+    /* Navigation */
+    nav {
+      background-color: #0077cc;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      padding: 1rem;
+      margin: 0;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    nav li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav li a:hover {
+      background: rgba(255,255,255,0.2);
+      border-radius: 5px;
+    }
+
+    /* ========== Responsive Navigation ========== */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        padding: 0;
+      }
+
+      nav li {
+        margin: 0.5rem 0;
+        width: 100%;
+      }
+
+      nav li a {
+        padding: 1rem;
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* ========== Container & Form ========== */
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #ffffffcc;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    form fieldset {
+      border: none;
+      padding: 0;
+    }
+
+    form legend {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #0077cc;
+      font-weight: bold;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    input[type="submit"] {
+      margin-top: 1.5rem;
+      background-color: #0077cc;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #005fa3;
+    }
+
+    footer {
+      text-align: center;
+      margin: 2rem 0;
+      color: #333;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -53,7 +229,7 @@
 
   <script>
     function toggleMenu() {
-      const nav = document.getElementById("navMenu");
+      const nav = document.getElementById("myLinks");
       nav.classList.toggle("show");
     }
   </script>
