@@ -90,24 +90,25 @@
     }
 
     .filters select,
-    .filters input {
+    .filters input[type="number"] {
       padding: 0.5rem;
       font-size: 1rem;
-      min-width: 120px;
+      min-width: 150px;
     }
 
     .filters button {
       padding: 0.5rem 1rem;
       font-size: 1rem;
       cursor: pointer;
-      background-color: #0077cc;
+      background: #0077cc;
       border: none;
       color: white;
       border-radius: 4px;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s ease;
     }
+
     .filters button:hover {
-      background-color: #005fa3;
+      background: #005fa3;
     }
 
     #map {
@@ -138,8 +139,8 @@
     .listing img {
       width: 100%;
       height: 200px;
-      object-fit: contain; /* Changed from cover to contain to prevent cropping */
-      background: #eee; /* fallback background so empty areas look nice */
+      object-fit: cover;
+      background: #eee;
     }
 
     .listing-content {
@@ -205,23 +206,30 @@
     }
 
     .slides-wrapper {
-      flex: 1;
-      overflow: hidden;
-      position: relative;
+      flex: 1 1 auto;
+      overflow-y: auto; /* Allow vertical scroll */
+      padding: 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f9f9f9;
     }
 
     #slidesContainer {
-      display: flex;
-      height: 100%;
-      transition: transform 0.3s ease-in-out;
-      will-change: transform;
+      display: block; /* show one image at a time */
+      height: auto;
+      text-align: center;
     }
 
     #slidesContainer img {
-      width: 100%;
-      object-fit: contain; /* also contain here */
-      user-select: none;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
       pointer-events: none;
+      user-select: none;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
 
     /* Controls */
@@ -294,12 +302,14 @@
       <option value="CA">California</option>
       <option value="PA">Pennsylvania</option>
     </select>
+
     <select id="cityFilter">
       <option value="">Select City</option>
       <option value="NYC">New York City</option>
       <option value="LA">Los Angeles</option>
       <option value="Harrisburg">Harrisburg</option>
     </select>
+
     <select id="bedroomsFilter">
       <option value="">Bedrooms</option>
       <option value="1">1+</option>
@@ -308,6 +318,7 @@
       <option value="4">4+</option>
       <option value="5">5+</option>
     </select>
+
     <select id="bathroomsFilter">
       <option value="">Bathrooms</option>
       <option value="1">1+</option>
@@ -316,9 +327,11 @@
       <option value="4">4+</option>
       <option value="5">5+</option>
     </select>
-    <input type="number" id="minPriceFilter" placeholder="Min Price ($)" min="0" step="1000" />
-    <input type="number" id="maxPriceFilter" placeholder="Max Price ($)" min="0" step="1000" />
-    <button id="resetFiltersBtn">Reset Filters</button>
+
+    <input type="number" id="minPriceFilter" placeholder="Min Price" min="0" />
+    <input type="number" id="maxPriceFilter" placeholder="Max Price" min="0" />
+
+    <button id="resetFiltersBtn" type="button">Reset Filters</button>
   </div>
 
   <div id="map"></div>
@@ -349,45 +362,45 @@
         position: { lat: 40.7128, lng: -74.0060 },
         title: "NYC Apartment",
         description: "2 bed, 1 bath, $900k",
+        bedrooms: 2,
+        bathrooms: 1,
+        price: 900000,
         images: [
           "tree.png",
           "testlisting.jpg",
           "emblem3.png"
         ],
         city: "NYC",
-        state: "NY",
-        bedrooms: 2,
-        bathrooms: 1,
-        price: 900000
+        state: "NY"
       },
       {
         position: { lat: 34.0522, lng: -118.2437 },
         title: "LA Condo",
         description: "3 bed, 2 bath, $1.2M",
+        bedrooms: 3,
+        bathrooms: 2,
+        price: 1200000,
         images: [
           "treeman.jpg",
           "tree.png",
           "emblem3.png"
         ],
         city: "LA",
-        state: "CA",
-        bedrooms: 3,
-        bathrooms: 2,
-        price: 1200000
+        state: "CA"
       },
       {
         position: { lat: 40.2732, lng: -76.8867 },
         title: "Harrisburg Home",
         description: "3 bed, 2 bath, $400k",
+        bedrooms: 3,
+        bathrooms: 2,
+        price: 400000,
         images: [
           "treeman.jpg",
           "tree.png"
         ],
         city: "Harrisburg",
-        state: "PA",
-        bedrooms: 3,
-        bathrooms: 2,
-        price: 400000
+        state: "PA"
       }
     ];
 
@@ -428,6 +441,24 @@
 
     function toggleNav() {
       document.getElementById("navLinks").classList.toggle("show");
+    }
+
+    function getFilters() {
+      const state = document.getElementById("stateFilter").value;
+      const city = document.getElementById("cityFilter").value;
+      const bedrooms = document.getElementById("bedroomsFilter").value;
+      const bathrooms = document.getElementById("bathroomsFilter").value;
+      const minPrice = document.getElementById("minPriceFilter").value;
+      const maxPrice = document.getElementById("maxPriceFilter").value;
+
+      return {
+        state: state || null,
+        city: city || null,
+        bedrooms: bedrooms ? parseInt(bedrooms, 10) : null,
+        bathrooms: bathrooms ? parseInt(bathrooms, 10) : null,
+        minPrice: minPrice ? parseInt(minPrice, 10) : null,
+        maxPrice: maxPrice ? parseInt(maxPrice, 10) : null
+      };
     }
 
     function displayListings(filter = {}) {
@@ -495,11 +526,13 @@
       `;
 
       slidesContainer.innerHTML = "";
-      listing.images.forEach((imgSrc) => {
+      listing.images.forEach((imgSrc, i) => {
         const imgElem = document.createElement("img");
         imgElem.src = imgSrc;
+        imgElem.style.display = i === 0 ? "block" : "none"; // show only first image initially
         slidesContainer.appendChild(imgElem);
       });
+
       updateSlide();
 
       modal.classList.add("active");
@@ -511,8 +544,10 @@
     }
 
     function updateSlide() {
-      const slideWidth = slidesContainer.clientWidth;
-      slidesContainer.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+      const images = slidesContainer.querySelectorAll("img");
+      images.forEach((img, i) => {
+        img.style.display = i === currentSlide ? "block" : "none";
+      });
     }
 
     prevBtn.addEventListener("click", () => {
@@ -587,37 +622,25 @@
       }
     });
 
-    // Filter event listeners
-    function getFilters() {
-      const state = document.getElementById("stateFilter").value;
-      const city = document.getElementById("cityFilter").value;
-      const bedrooms = document.getElementById("bedroomsFilter").value;
-      const bathrooms = document.getElementById("bathroomsFilter").value;
-      const minPrice = document.getElementById("minPriceFilter").value;
-      const maxPrice = document.getElementById("maxPriceFilter").value;
-
-      return {
-        state: state || null,
-        city: city || null,
-        bedrooms: bedrooms ? parseInt(bedrooms, 10) : null,
-        bathrooms: bathrooms ? parseInt(bathrooms, 10) : null,
-        minPrice: minPrice ? parseInt(minPrice, 10) : null,
-        maxPrice: maxPrice ? parseInt(maxPrice, 10) : null
-      };
+    // Filters change handlers
+    function applyFilters() {
+      const filters = getFilters();
+      displayListings(filters);
     }
 
-    function onFiltersChange() {
-      const filter = getFilters();
-      displayListings(filter);
-    }
+    document.getElementById("stateFilter").addEventListener("change", () => {
+      // Reset city if state changes (optional)
+      document.getElementById("cityFilter").value = "";
+      applyFilters();
+    });
 
-    document.getElementById("stateFilter").addEventListener("change", onFiltersChange);
-    document.getElementById("cityFilter").addEventListener("change", onFiltersChange);
-    document.getElementById("bedroomsFilter").addEventListener("change", onFiltersChange);
-    document.getElementById("bathroomsFilter").addEventListener("change", onFiltersChange);
-    document.getElementById("minPriceFilter").addEventListener("input", onFiltersChange);
-    document.getElementById("maxPriceFilter").addEventListener("input", onFiltersChange);
+    document.getElementById("cityFilter").addEventListener("change", applyFilters);
+    document.getElementById("bedroomsFilter").addEventListener("change", applyFilters);
+    document.getElementById("bathroomsFilter").addEventListener("change", applyFilters);
+    document.getElementById("minPriceFilter").addEventListener("input", applyFilters);
+    document.getElementById("maxPriceFilter").addEventListener("input", applyFilters);
 
+    // Reset filters button
     document.getElementById("resetFiltersBtn").addEventListener("click", () => {
       document.getElementById("stateFilter").value = "";
       document.getElementById("cityFilter").value = "";
@@ -627,11 +650,13 @@
       document.getElementById("maxPriceFilter").value = "";
       displayListings();
     });
+
+    // Initial listing display
+    displayListings();
   </script>
 
   <!-- Replace YOUR_API_KEY below with your actual Google Maps API key -->
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByEsLB2qwxw7UMEhc8Hf9e_TCwp35OpQs&callback=initMap"></script>
-
 </body>
 </html>
