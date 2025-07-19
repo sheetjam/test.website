@@ -90,24 +90,24 @@
     }
 
     .filters select,
-    .filters input[type="number"] {
+    .filters input {
       padding: 0.5rem;
       font-size: 1rem;
-      min-width: 150px;
+      min-width: 120px;
     }
 
-    .filters button {
+    #resetFiltersBtn {
+      background: #0077cc;
+      color: white;
+      border: none;
       padding: 0.5rem 1rem;
       font-size: 1rem;
+      border-radius: 5px;
       cursor: pointer;
-      background: #0077cc;
-      border: none;
-      color: white;
-      border-radius: 4px;
       transition: background 0.3s ease;
     }
 
-    .filters button:hover {
+    #resetFiltersBtn:hover {
       background: #005fa3;
     }
 
@@ -140,7 +140,6 @@
       width: 100%;
       height: 200px;
       object-fit: cover;
-      background: #eee;
     }
 
     .listing-content {
@@ -191,45 +190,32 @@
       font-weight: bold;
     }
 
-    .modal-body {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .modal-details {
-      padding: 1rem;
-      border-top: 1px solid #ddd;
-      font-size: 1rem;
-      color: #444;
-    }
-
     .slides-wrapper {
-      flex: 1 1 auto;
-      overflow-y: auto; /* Allow vertical scroll */
-      padding: 0.5rem;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       background: #f9f9f9;
     }
 
     #slidesContainer {
-      display: block; /* show one image at a time */
-      height: auto;
-      text-align: center;
+      display: flex;
+      height: 100%;
+      width: 100%;
+      transition: transform 0.3s ease-in-out;
+      will-change: transform;
     }
 
     #slidesContainer img {
-      max-width: 100%;
+      width: 100%;
       height: auto;
-      display: block;
-      margin: 0 auto;
-      pointer-events: none;
+      max-height: 80vh;
+      object-fit: contain;
       user-select: none;
-      border-radius: 6px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      pointer-events: none;
+      flex-shrink: 0;
     }
 
     /* Controls */
@@ -316,7 +302,6 @@
       <option value="2">2+</option>
       <option value="3">3+</option>
       <option value="4">4+</option>
-      <option value="5">5+</option>
     </select>
 
     <select id="bathroomsFilter">
@@ -324,12 +309,10 @@
       <option value="1">1+</option>
       <option value="2">2+</option>
       <option value="3">3+</option>
-      <option value="4">4+</option>
-      <option value="5">5+</option>
     </select>
 
-    <input type="number" id="minPriceFilter" placeholder="Min Price" min="0" />
-    <input type="number" id="maxPriceFilter" placeholder="Max Price" min="0" />
+    <input type="number" id="minPriceFilter" placeholder="Min Price ($)" min="0" />
+    <input type="number" id="maxPriceFilter" placeholder="Max Price ($)" min="0" />
 
     <button id="resetFiltersBtn" type="button">Reset Filters</button>
   </div>
@@ -357,14 +340,15 @@
   </div>
 
   <script>
+    // Listings data with price as number, bedrooms and bathrooms as numbers
     const listings = [
       {
         position: { lat: 40.7128, lng: -74.0060 },
         title: "NYC Apartment",
-        description: "2 bed, 1 bath, $900k",
+        description: "2 bed, 1 bath",
+        price: 900000,
         bedrooms: 2,
         bathrooms: 1,
-        price: 900000,
         images: [
           "tree.png",
           "testlisting.jpg",
@@ -376,10 +360,10 @@
       {
         position: { lat: 34.0522, lng: -118.2437 },
         title: "LA Condo",
-        description: "3 bed, 2 bath, $1.2M",
+        description: "3 bed, 2 bath",
+        price: 1200000,
         bedrooms: 3,
         bathrooms: 2,
-        price: 1200000,
         images: [
           "treeman.jpg",
           "tree.png",
@@ -391,10 +375,10 @@
       {
         position: { lat: 40.2732, lng: -76.8867 },
         title: "Harrisburg Home",
-        description: "3 bed, 2 bath, $400k",
+        description: "3 bed, 2 bath",
+        price: 400000,
         bedrooms: 3,
         bathrooms: 2,
-        price: 400000,
         images: [
           "treeman.jpg",
           "tree.png"
@@ -427,6 +411,7 @@
               <h4>${listing.title}</h4>
               <img src="${listing.images[0]}" style="width: 100%; border-radius: 6px;" />
               <p>${listing.description}</p>
+              <p><strong>$${listing.price.toLocaleString()}</strong></p>
             </div>
           `
         });
@@ -448,16 +433,19 @@
       const city = document.getElementById("cityFilter").value;
       const bedrooms = document.getElementById("bedroomsFilter").value;
       const bathrooms = document.getElementById("bathroomsFilter").value;
-      const minPrice = document.getElementById("minPriceFilter").value;
-      const maxPrice = document.getElementById("maxPriceFilter").value;
+      const minPriceRaw = document.getElementById("minPriceFilter").value;
+      const maxPriceRaw = document.getElementById("maxPriceFilter").value;
+
+      const minPrice = minPriceRaw !== "" && !isNaN(minPriceRaw) ? Number(minPriceRaw) : null;
+      const maxPrice = maxPriceRaw !== "" && !isNaN(maxPriceRaw) ? Number(maxPriceRaw) : null;
 
       return {
         state: state || null,
         city: city || null,
         bedrooms: bedrooms ? parseInt(bedrooms, 10) : null,
         bathrooms: bathrooms ? parseInt(bathrooms, 10) : null,
-        minPrice: minPrice ? parseInt(minPrice, 10) : null,
-        maxPrice: maxPrice ? parseInt(maxPrice, 10) : null
+        minPrice,
+        maxPrice
       };
     }
 
@@ -471,8 +459,8 @@
           if (filter.city && listing.city !== filter.city) return false;
           if (filter.bedrooms && listing.bedrooms < filter.bedrooms) return false;
           if (filter.bathrooms && listing.bathrooms < filter.bathrooms) return false;
-          if (filter.minPrice && listing.price < filter.minPrice) return false;
-          if (filter.maxPrice && listing.price > filter.maxPrice) return false;
+          if (filter.minPrice !== null && listing.price < filter.minPrice) return false;
+          if (filter.maxPrice !== null && listing.price > filter.maxPrice) return false;
           return true;
         })
         .forEach((listing, index) => {
@@ -484,6 +472,7 @@
                 <h3>${listing.title}</h3>
                 <p>${listing.description}</p>
                 <p><strong>${listing.city}, ${listing.state}</strong></p>
+                <p><strong>Price: $${listing.price.toLocaleString()}</strong></p>
               </div>
             </div>
           `;
@@ -523,16 +512,17 @@
       modalDetails.innerHTML = `
         <p>${listing.description}</p>
         <p><strong>${listing.city}, ${listing.state}</strong></p>
+        <p><strong>Price: $${listing.price.toLocaleString()}</strong></p>
+        <p><strong>Bedrooms:</strong> ${listing.bedrooms}</p>
+        <p><strong>Bathrooms:</strong> ${listing.bathrooms}</p>
       `;
 
       slidesContainer.innerHTML = "";
-      listing.images.forEach((imgSrc, i) => {
+      listing.images.forEach((imgSrc) => {
         const imgElem = document.createElement("img");
         imgElem.src = imgSrc;
-        imgElem.style.display = i === 0 ? "block" : "none"; // show only first image initially
         slidesContainer.appendChild(imgElem);
       });
-
       updateSlide();
 
       modal.classList.add("active");
@@ -544,10 +534,8 @@
     }
 
     function updateSlide() {
-      const images = slidesContainer.querySelectorAll("img");
-      images.forEach((img, i) => {
-        img.style.display = i === currentSlide ? "block" : "none";
-      });
+      const slideWidth = slidesContainer.clientWidth;
+      slidesContainer.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
     }
 
     prevBtn.addEventListener("click", () => {
@@ -622,23 +610,17 @@
       }
     });
 
-    // Filters change handlers
     function applyFilters() {
-      const filters = getFilters();
-      displayListings(filters);
+      const filter = getFilters();
+      displayListings(filter);
     }
 
-    document.getElementById("stateFilter").addEventListener("change", () => {
-      // Reset city if state changes (optional)
-      document.getElementById("cityFilter").value = "";
-      applyFilters();
-    });
-
-    document.getElementById("cityFilter").addEventListener("change", applyFilters);
-    document.getElementById("bedroomsFilter").addEventListener("change", applyFilters);
-    document.getElementById("bathroomsFilter").addEventListener("change", applyFilters);
-    document.getElementById("minPriceFilter").addEventListener("input", applyFilters);
-    document.getElementById("maxPriceFilter").addEventListener("input", applyFilters);
+    // Event listeners for filters
+    ["stateFilter", "cityFilter", "bedroomsFilter", "bathroomsFilter", "minPriceFilter", "maxPriceFilter"]
+      .forEach(id => {
+        document.getElementById(id).addEventListener("input", applyFilters);
+        document.getElementById(id).addEventListener("change", applyFilters);
+      });
 
     // Reset filters button
     document.getElementById("resetFiltersBtn").addEventListener("click", () => {
@@ -651,12 +633,11 @@
       displayListings();
     });
 
-    // Initial listing display
-    displayListings();
   </script>
 
   <!-- Replace YOUR_API_KEY below with your actual Google Maps API key -->
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByEsLB2qwxw7UMEhc8Hf9e_TCwp35OpQs&callback=initMap"></script>
+
 </body>
 </html>
