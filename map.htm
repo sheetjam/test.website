@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>InSight Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>InSight Services - Home Listings</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,68 +12,58 @@
     }
 
     body {
-      background: #a5d9ff;
       font-family: Arial, sans-serif;
-      color: #333;
-      line-height: 1.6;
+      background: #f4faff;
     }
 
     header {
-      background: linear-gradient(90deg, rgba(0, 119, 204, 1) 0%, rgba(0, 139, 204, 0.87) 38%, rgba(0, 180, 204, 1) 100%);
-      color: #000;
-      padding: 0.5em 1rem;
+      background: linear-gradient(90deg, #0077cc 0%, #009bcc 100%);
+      color: white;
+      padding: 1rem;
     }
 
     .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: nowrap;
     }
 
     .logo-container {
       display: flex;
       align-items: center;
       gap: 1rem;
-    color: #fff;
     }
 
     .logo {
-      width: 70px;
-      height: auto;
+      width: 60px;
     }
 
     .hamburger {
       font-size: 2rem;
       cursor: pointer;
       display: none;
-      color: #fff;
-    }
-
-    nav {
-      background: #0077cc;
     }
 
     nav ul {
+      list-style: none;
       display: flex;
       justify-content: center;
-      list-style: none;
-      padding: 1em;
-      margin: 0;
-      gap: 2rem;
+      background: #0077cc;
+      padding: 0.5rem 0;
+    }
+
+    nav li {
+      margin: 0 1rem;
     }
 
     nav a {
+      color: white;
       text-decoration: none;
-      color: #fff;
       font-weight: bold;
-      padding: 0.5em;
-      transition: background 0.3s;
     }
 
     nav a:hover {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 5px;
+      text-decoration: underline;
     }
 
     @media (max-width: 768px) {
@@ -82,9 +72,8 @@
       }
 
       nav ul {
-        flex-direction: column;
-        align-items: center;
         display: none;
+        flex-direction: column;
       }
 
       nav ul.show {
@@ -92,81 +81,56 @@
       }
     }
 
-    .services-wrapper {
-      padding: 2em;
-      background: #f5faff;
+    .filters {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      justify-content: center;
     }
 
-    .intro {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto 2em;
+    .filters select {
+      padding: 0.5rem;
+      font-size: 1rem;
     }
 
-    .services-grid {
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+
+    .listings {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2em;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
     }
 
-    .service-card {
+    .listing {
       background: white;
-      padding: 1.5em;
       border-radius: 10px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-      text-align: center;
-      transition: transform 0.2s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
     }
 
-    .service-card:hover {
-      transform: translateY(-5px);
+    .listing img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
     }
 
-    .service-icon {
-      width: 60px;
-      height: auto;
-      margin-bottom: 1em;
+    .listing-content {
+      padding: 1rem;
     }
 
-    .cta {
-      text-align: center;
-      margin-top: 3em;
-      background: #0077cc;
-      color: white;
-      padding: 2em;
-      border-radius: 10px;
+    .listing h3 {
+      margin-bottom: 0.5rem;
     }
 
-    .cta .btn {
-      background: white;
-      color: #0077cc;
-      padding: 0.75rem 1.5rem;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      display: inline-block;
-      margin-top: 1em;
-    }
-
-    .cta .btn:hover {
-      background: #e6f3ff;
-    }
-
-    footer {
-      background: #333;
-      color: #fff;
-      text-align: center;
-      padding: 1em;
-      font-size: 0.9rem;
-      margin-top: 2em;
+    .listing p {
+      margin-bottom: 0.5rem;
+      color: #555;
     }
   </style>
-  <script>
-    function toggleNav() {
-      const nav = document.querySelector("nav ul");
-      nav.classList.toggle("show");
-    }
-  </script>
 </head>
 <body>
 
@@ -179,64 +143,142 @@
       <div class="hamburger" onclick="toggleNav()">&#9776;</div>
     </div>
     <nav>
-      <ul>
+      <ul id="navLinks">
+        <li><a href="forms.htm">Home</a></li>
         <li><a href="index.htm">Home</a></li>
-        <li><a href="#">Forms</a></li>
         <li><a href="services.htm">Services</a></li>
-        <li><a href="map.htm">Locations</a></li>
+        <li><a href="map.htm">Map</a></li>
         <li><a href="contact.htm">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <main class="services-wrapper">
-    <section class="intro">
-      <h2>Our Services</h2>
-      <p>At InSight Services, we are committed to making your property journey smooth and successful. Whether you're buying, selling, renovating, or verifying assets, we're here to support you every step of the way.</p>
-    </section>
+  <div class="filters">
+    <select id="stateFilter">
+      <option value="">Select State</option>
+      <option value="NY">New York</option>
+      <option value="CA">California</option>
+      <option value="PA">Pennsylvania</option>
+    </select>
+    <select id="cityFilter">
+      <option value="">Select City</option>
+      <option value="NYC">New York City</option>
+      <option value="LA">Los Angeles</option>
+      <option value="Harrisburg">Harrisburg</option>
+    </select>
+  </div>
 
-    <section class="services-grid">
-      <div class="service-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/2838/2838912.png" alt="Inspection Icon" class="service-icon">
-        <h3>Property Inspection</h3>
-        <p>Get a comprehensive look at the condition of your future home. Our certified inspectors help ensure peace of mind.</p>
-      </div>
+  <div id="map"></div>
 
-      <div class="service-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/9073/9073530.png" alt="Asset Verification Icon" class="service-icon">
-        <h3>Asset Verification</h3>
-        <p>Ensure accuracy and transparency with our expert asset verification services. Details tailored to your needs.</p>
-      </div>
+  <div class="listings" id="listingsContainer">
+    <!-- Listings will be inserted here -->
+  </div>
 
-      <div class="service-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/69/69524.png" alt="House Icon" class="service-icon">
-        <h3>Property Acquisition</h3>
-        <p>Looking to sell your home? We simplify the process and help you transition smoothly to your next chapter.</p>
-      </div>
+  <script>
+    const listings = [
+      {
+        position: { lat: 40.7128, lng: -74.0060 },
+        title: "NYC Apartment",
+        description: "2 bed, 1 bath, $900k",
+        image: "https://via.placeholder.com/600x400?text=NYC+Home",
+        city: "NYC",
+        state: "NY"
+      },
+      {
+        position: { lat: 34.0522, lng: -118.2437 },
+        title: "LA Condo",
+        description: "3 bed, 2 bath, $1.2M",
+        image: "https://via.placeholder.com/600x400?text=LA+Condo",
+        city: "LA",
+        state: "CA"
+      },
+      {
+        position: { lat: 40.2732, lng: -76.8867 },
+        title: "Harrisburg Home",
+        description: "3 bed, 2 bath, $400k",
+        image: "https://via.placeholder.com/600x400?text=Harrisburg+Home",
+        city: "Harrisburg",
+        state: "PA"
+      }
+    ];
 
-      <div class="service-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/1008/1008910.png" alt="Disposition Icon" class="service-icon">
-        <h3>Property Disposition</h3>
-        <p>Explore a wide selection of homes and land across all 50 states. Let us help you find your next home.</p>
-      </div>
+    let map;
 
-      <div class="service-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/985/985040.png" alt="Rehabilitation Icon" class="service-icon">
-        <h3>Property Rehabilitation</h3>
-        <p>From outdated to outstanding — we breathe new life into homes and increase their market value.</p>
-      </div>
-    </section>
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 39.8283, lng: -98.5795 }, // Center of USA
+        zoom: 4,
+      });
 
-    <section class="cta">
-      <h3>Need Help Deciding?</h3>
-      <p>Contact us today for a free consultation — let’s explore what InSight Services can do for you.</p>
-      <a href="contact.htm" class="btn">Contact Us</a>
-    </section>
-  </main>
+      listings.forEach(listing => {
+        const marker = new google.maps.Marker({
+          position: listing.position,
+          map,
+          title: listing.title
+        });
 
-  <footer>
-    &copy; 2025 InSight Services. All rights reserved.
-  </footer>
+        const infoWindow = new google.maps.InfoWindow({
+          content: `
+            <div style="max-width: 200px;">
+              <h4>${listing.title}</h4>
+              <img src="${listing.image}" style="width: 100%; border-radius: 6px;" />
+              <p>${listing.description}</p>
+            </div>
+          `
+        });
+
+        marker.addListener("click", () => {
+          infoWindow.open(map, marker);
+        });
+      });
+
+      displayListings();
+    }
+
+    function toggleNav() {
+      document.getElementById("navLinks").classList.toggle("show");
+    }
+
+    function displayListings(filter = {}) {
+      const container = document.getElementById("listingsContainer");
+      container.innerHTML = "";
+
+      listings
+        .filter(listing =>
+          (!filter.state || listing.state === filter.state) &&
+          (!filter.city || listing.city === filter.city)
+        )
+        .forEach(listing => {
+          container.innerHTML += `
+            <div class="listing">
+              <img src="${listing.image}" alt="${listing.title}" />
+              <div class="listing-content">
+                <h3>${listing.title}</h3>
+                <p>${listing.description}</p>
+                <p><strong>${listing.city}, ${listing.state}</strong></p>
+              </div>
+            </div>
+          `;
+        });
+    }
+
+    document.getElementById("stateFilter").addEventListener("change", () => {
+      const state = document.getElementById("stateFilter").value;
+      const city = document.getElementById("cityFilter").value;
+      displayListings({ state, city });
+    });
+
+    document.getElementById("cityFilter").addEventListener("change", () => {
+      const state = document.getElementById("stateFilter").value;
+      const city = document.getElementById("cityFilter").value;
+      displayListings({ state, city });
+    });
+  </script>
+
+  <!-- Replace YOUR_API_KEY with your actual Google Maps API key -->
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByEsLB2qwxw7UMEhc8Hf9e_TCwp35OpQs&callback=initMap">
+  </script>
 
 </body>
 </html>
