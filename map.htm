@@ -26,27 +26,22 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
     }
 
     .logo-container {
       display: flex;
       align-items: center;
       gap: 1rem;
-      flex-wrap: wrap;
     }
 
     .logo {
       width: 60px;
-      height: auto;
     }
 
     .hamburger {
       font-size: 2rem;
       cursor: pointer;
       display: none;
-      user-select: none;
     }
 
     nav ul {
@@ -55,8 +50,6 @@
       justify-content: center;
       background: #0077cc;
       padding: 0.5rem 0;
-      flex-wrap: wrap;
-      gap: 1rem;
     }
 
     nav li {
@@ -81,7 +74,6 @@
       nav ul {
         display: none;
         flex-direction: column;
-        width: 100%;
       }
 
       nav ul.show {
@@ -95,32 +87,17 @@
       padding: 1rem;
       justify-content: center;
       flex-wrap: wrap;
-      background: #e1f0ff;
-      border-radius: 10px;
-      margin: 1rem;
     }
 
-    .filters select,
-    .filters button {
+    .filters select {
       padding: 0.5rem;
       font-size: 1rem;
       min-width: 150px;
-      border-radius: 6px;
-      border: 1px solid #0077cc;
-      background: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .filters select:hover,
-    .filters button:hover {
-      background-color: #d4e9ff;
     }
 
     #map {
       height: 400px;
       width: 100%;
-      margin-bottom: 1rem;
     }
 
     .listings {
@@ -137,21 +114,16 @@
       overflow: hidden;
       cursor: pointer;
       transition: transform 0.2s ease;
-      outline-offset: 2px;
     }
 
-    .listing:hover,
-    .listing:focus-visible {
+    .listing:hover {
       transform: scale(1.03);
-      outline: 2px solid #0077cc;
     }
 
     .listing img {
       width: 100%;
       height: 200px;
       object-fit: cover;
-      user-select: none;
-      pointer-events: none;
     }
 
     .listing-content {
@@ -286,7 +258,7 @@
         <img src="emblem3.png" alt="InSight Services Logo" class="logo" />
         <h3>Where your dream home becomes reality</h3>
       </div>
-      <div class="hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" role="button" tabindex="0">&#9776;</div>
+      <div class="hamburger" onclick="toggleNav()">&#9776;</div>
     </div>
     <nav>
       <ul id="navLinks">
@@ -299,67 +271,29 @@
     </nav>
   </header>
 
-  <div class="filters" aria-label="Filter listings">
-    <select id="stateFilter" aria-label="Filter by state">
+  <div class="filters">
+    <select id="stateFilter">
       <option value="">Select State</option>
       <option value="NY">New York</option>
       <option value="CA">California</option>
       <option value="PA">Pennsylvania</option>
     </select>
-
-    <select id="cityFilter" aria-label="Filter by city">
+    <select id="cityFilter">
       <option value="">Select City</option>
       <option value="NYC">New York City</option>
       <option value="LA">Los Angeles</option>
       <option value="Harrisburg">Harrisburg</option>
     </select>
-
-    <select id="bedroomsFilter" aria-label="Filter by number of bedrooms">
-      <option value="">Bedrooms</option>
-      <option value="1">1+</option>
-      <option value="2">2+</option>
-      <option value="3">3+</option>
-      <option value="4">4+</option>
-      <option value="5">5+</option>
-    </select>
-
-    <select id="bathroomsFilter" aria-label="Filter by number of bathrooms">
-      <option value="">Bathrooms</option>
-      <option value="1">1+</option>
-      <option value="2">2+</option>
-      <option value="3">3+</option>
-      <option value="4">4+</option>
-    </select>
-
-    <select id="priceMinFilter" aria-label="Minimum price">
-      <option value="">Min Price</option>
-      <option value="100000">$100k</option>
-      <option value="300000">$300k</option>
-      <option value="500000">$500k</option>
-      <option value="700000">$700k</option>
-      <option value="900000">$900k</option>
-      <option value="1000000">$1M</option>
-    </select>
-
-    <select id="priceMaxFilter" aria-label="Maximum price">
-      <option value="">Max Price</option>
-      <option value="300000">$300k</option>
-      <option value="500000">$500k</option>
-      <option value="700000">$700k</option>
-      <option value="900000">$900k</option>
-      <option value="1000000">$1M</option>
-      <option value="2000000">$2M</option>
-    </select>
-
-    <button id="resetFiltersBtn" aria-label="Reset all filters">Reset Filters</button>
   </div>
 
-  <div id="map" aria-label="Home listings map"></div>
+  <div id="map"></div>
 
-  <div class="listings" id="listingsContainer" aria-live="polite" aria-relevant="additions"></div>
+  <div class="listings" id="listingsContainer">
+    <!-- Listings go here -->
+  </div>
 
   <!-- Modal -->
-  <div id="listingModal" aria-modal="true" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDetails" tabindex="-1">
+  <div id="listingModal" aria-modal="true" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDetails">
     <div class="modal-content">
       <button id="modalCloseBtn" aria-label="Close modal">&times;</button>
       <div class="modal-header" id="modalTitle">Listing Title</div>
@@ -375,40 +309,41 @@
   </div>
 
   <script>
-    // Listings data, added structured numeric data for price, beds, baths to simplify filtering
     const listings = [
       {
         position: { lat: 40.7128, lng: -74.0060 },
         title: "NYC Apartment",
         description: "2 bed, 1 bath, $900k",
-        images: ["tree.png", "testlisting.jpg", "emblem3.png"],
+        images: [
+          "tree.png",
+          "testlisting.jpg",
+          "emblem3.png"
+        ],
         city: "NYC",
-        state: "NY",
-        price: 900000,
-        bedrooms: 2,
-        bathrooms: 1
+        state: "NY"
       },
       {
         position: { lat: 34.0522, lng: -118.2437 },
         title: "LA Condo",
         description: "3 bed, 2 bath, $1.2M",
-        images: ["treeman.jpg", "tree.png", "emblem3.png"],
+        images: [
+          "treeman.jpg",
+          "tree.png",
+          "emblem3.png"
+        ],
         city: "LA",
-        state: "CA",
-        price: 1200000,
-        bedrooms: 3,
-        bathrooms: 2
+        state: "CA"
       },
       {
         position: { lat: 40.2732, lng: -76.8867 },
         title: "Harrisburg Home",
         description: "3 bed, 2 bath, $400k",
-        images: ["treeman.jpg", "tree.png"],
+        images: [
+          "treeman.jpg",
+          "tree.png"
+        ],
         city: "Harrisburg",
-        state: "PA",
-        price: 400000,
-        bedrooms: 3,
-        bathrooms: 2
+        state: "PA"
       }
     ];
 
@@ -443,85 +378,39 @@
           infoWindow.open(map, marker);
         });
       });
+
+      displayListings();
     }
 
     function toggleNav() {
       document.getElementById("navLinks").classList.toggle("show");
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      displayListings();
-
-      const filters = [
-        "stateFilter",
-        "cityFilter",
-        "bedroomsFilter",
-        "bathroomsFilter",
-        "priceMinFilter",
-        "priceMaxFilter"
-      ];
-
-      filters.forEach(id => {
-        document.getElementById(id).addEventListener("change", applyFilters);
-      });
-
-      document.getElementById("resetFiltersBtn").addEventListener("click", resetFilters);
-    });
-
-    function applyFilters() {
-      const state = document.getElementById("stateFilter").value;
-      const city = document.getElementById("cityFilter").value;
-      const bedrooms = document.getElementById("bedroomsFilter").value;
-      const bathrooms = document.getElementById("bathroomsFilter").value;
-      const priceMin = document.getElementById("priceMinFilter").value;
-      const priceMax = document.getElementById("priceMaxFilter").value;
-
-      displayListings({ state, city, bedrooms, bathrooms, priceMin, priceMax });
-    }
-
-    function resetFilters() {
-      ["stateFilter", "cityFilter", "bedroomsFilter", "bathroomsFilter", "priceMinFilter", "priceMaxFilter"]
-        .forEach(id => {
-          document.getElementById(id).value = "";
-        });
-      displayListings();
-    }
-
     function displayListings(filter = {}) {
       const container = document.getElementById("listingsContainer");
       container.innerHTML = "";
 
-      const filtered = listings.filter(listing => {
-        if (filter.state && listing.state !== filter.state) return false;
-        if (filter.city && listing.city !== filter.city) return false;
-        if (filter.bedrooms && listing.bedrooms < Number(filter.bedrooms)) return false;
-        if (filter.bathrooms && listing.bathrooms < Number(filter.bathrooms)) return false;
-        if (filter.priceMin && listing.price < Number(filter.priceMin)) return false;
-        if (filter.priceMax && listing.price > Number(filter.priceMax)) return false;
-        return true;
-      });
-
-      if (filtered.length === 0) {
-        container.innerHTML = `<p style="text-align:center; font-style: italic; color:#555;">No listings found matching your criteria.</p>`;
-        return;
-      }
-
-      filtered.forEach((listing, index) => {
-        const img = listing.images[0] || "";
-        const listingHTML = `
-          <div class="listing" data-index="${listings.indexOf(listing)}" tabindex="0" role="button" aria-pressed="false" aria-label="View details of ${listing.title}">
-            <img src="${img}" alt="${listing.title}" />
-            <div class="listing-content">
-              <h3>${listing.title}</h3>
-              <p>${listing.description}</p>
-              <p><strong>${listing.city}, ${listing.state}</strong></p>
+      listings
+        .filter(listing =>
+          (!filter.state || listing.state === filter.state) &&
+          (!filter.city || listing.city === filter.city)
+        )
+        .forEach((listing, index) => {
+          const img = listing.images[0] || "";
+          const listingHTML = `
+            <div class="listing" data-index="${index}" tabindex="0" role="button" aria-pressed="false" aria-label="View details of ${listing.title}">
+              <img src="${img}" alt="${listing.title}" />
+              <div class="listing-content">
+                <h3>${listing.title}</h3>
+                <p>${listing.description}</p>
+                <p><strong>${listing.city}, ${listing.state}</strong></p>
+              </div>
             </div>
-          </div>
-        `;
-        container.insertAdjacentHTML("beforeend", listingHTML);
-      });
+          `;
+          container.insertAdjacentHTML("beforeend", listingHTML);
+        });
 
-      // Add listeners to open modal
+      // Add click and keyboard listeners to open modal
       document.querySelectorAll(".listing").forEach(elem => {
         elem.addEventListener("click", () => {
           const idx = parseInt(elem.getAttribute("data-index"), 10);
@@ -537,7 +426,7 @@
       });
     }
 
-    // Modal controls
+    // Modal elements
     const modal = document.getElementById("listingModal");
     const modalTitle = document.getElementById("modalTitle");
     const modalDetails = document.getElementById("modalDetails");
@@ -565,8 +454,7 @@
       updateSlide();
 
       modal.classList.add("active");
-      modal.setAttribute("tabindex", "-1");
-      modal.focus();
+      modalCloseBtn.focus();
     }
 
     function closeModal() {
@@ -594,12 +482,14 @@
 
     modalCloseBtn.addEventListener("click", closeModal);
 
+    // Close modal if clicking outside modal content
     modal.addEventListener("click", (e) => {
       if (e.target === modal) {
         closeModal();
       }
     });
 
+    // Swipe detection for mobile
     let touchStartX = 0;
     let touchEndX = 0;
 
@@ -629,6 +519,7 @@
       }
     }
 
+    // Keyboard navigation in modal
     document.addEventListener("keydown", (e) => {
       if (!modal.classList.contains("active")) return;
 
@@ -646,9 +537,24 @@
         closeModal();
       }
     });
+
+    document.getElementById("stateFilter").addEventListener("change", () => {
+      const state = document.getElementById("stateFilter").value;
+      const city = document.getElementById("cityFilter").value;
+      displayListings({ state, city });
+    });
+
+    document.getElementById("cityFilter").addEventListener("change", () => {
+      const state = document.getElementById("stateFilter").value;
+      const city = document.getElementById("cityFilter").value;
+      displayListings({ state, city });
+    });
   </script>
 
+  <!-- Replace YOUR_API_KEY below with your actual Google Maps API key -->
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByEsLB2qwxw7UMEhc8Hf9e_TCwp35OpQs&callback=initMap"></script>
+
 </body>
 </html>
+
