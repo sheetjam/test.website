@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>InSight Services - Home Listings</title>
   <style>
     * {
@@ -86,11 +86,13 @@
       gap: 1rem;
       padding: 1rem;
       justify-content: center;
+      flex-wrap: wrap;
     }
 
     .filters select {
       padding: 0.5rem;
       font-size: 1rem;
+      min-width: 150px;
     }
 
     #map {
@@ -110,6 +112,12 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .listing:hover {
+      transform: scale(1.03);
     }
 
     .listing img {
@@ -130,6 +138,116 @@
       margin-bottom: 0.5rem;
       color: #555;
     }
+
+    /* Modal Styles */
+    #listingModal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    #listingModal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 10px;
+      max-width: 900px;
+      width: 90%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal-header {
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .modal-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .modal-details {
+      padding: 1rem;
+      border-top: 1px solid #ddd;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .slides-wrapper {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #slidesContainer {
+      display: flex;
+      height: 100%;
+      transition: transform 0.3s ease-in-out;
+      will-change: transform;
+    }
+
+    #slidesContainer img {
+      width: 100%;
+      object-fit: contain;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Controls */
+    .modal-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .modal-controls button {
+      background: rgba(0,0,0,0.4);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50%;
+      pointer-events: all;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+
+    .modal-controls button:hover {
+      background: rgba(0,0,0,0.7);
+    }
+
+    #modalCloseBtn {
+      position: absolute;
+      top: 0.3rem;
+      right: 0.5rem;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #333;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
@@ -144,7 +262,7 @@
     </div>
     <nav>
       <ul id="navLinks">
-        <li><a href="forms.htm">Home</a></li>
+        <li><a href="forms.htm">Forms</a></li>
         <li><a href="index.htm">Home</a></li>
         <li><a href="services.htm">Services</a></li>
         <li><a href="map.htm">Map</a></li>
@@ -171,7 +289,23 @@
   <div id="map"></div>
 
   <div class="listings" id="listingsContainer">
-    <!-- Listings will be inserted here -->
+    <!-- Listings go here -->
+  </div>
+
+  <!-- Modal -->
+  <div id="listingModal" aria-modal="true" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDetails">
+    <div class="modal-content">
+      <button id="modalCloseBtn" aria-label="Close modal">&times;</button>
+      <div class="modal-header" id="modalTitle">Listing Title</div>
+      <div class="slides-wrapper">
+        <div id="slidesContainer"></div>
+        <div class="modal-controls">
+          <button id="prevBtn" aria-label="Previous image">&#10094;</button>
+          <button id="nextBtn" aria-label="Next image">&#10095;</button>
+        </div>
+      </div>
+      <div class="modal-details" id="modalDetails"></div>
+    </div>
   </div>
 
   <script>
@@ -180,7 +314,11 @@
         position: { lat: 40.7128, lng: -74.0060 },
         title: "NYC Apartment",
         description: "2 bed, 1 bath, $900k",
-        image: "tree.png",
+        images: [
+          "tree.png",
+          "testlisting.jpg",
+          "emblem3"
+        ],
         city: "NYC",
         state: "NY"
       },
@@ -188,7 +326,11 @@
         position: { lat: 34.0522, lng: -118.2437 },
         title: "LA Condo",
         description: "3 bed, 2 bath, $1.2M",
-        image: "https://tree.png/600x400?text=NYC+Home",
+        images: [
+          "treeman.jpg",
+          "tree.png",
+          "emblem3.png"
+        ],
         city: "LA",
         state: "CA"
       },
@@ -196,17 +338,22 @@
         position: { lat: 40.2732, lng: -76.8867 },
         title: "Harrisburg Home",
         description: "3 bed, 2 bath, $400k",
-        image: "https://via.placeholder.com/600x400?text=Harrisburg+Home",
+        images: [
+          "treeman.jpg",
+          "tree.png"
+        ],
         city: "Harrisburg",
         state: "PA"
       }
     ];
 
     let map;
+    let currentSlide = 0;
+    let currentListingIndex = 0;
 
     function initMap() {
       map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 39.8283, lng: -98.5795 }, // Center of USA
+        center: { lat: 39.8283, lng: -98.5795 },
         zoom: 4,
       });
 
@@ -221,7 +368,7 @@
           content: `
             <div style="max-width: 200px;">
               <h4>${listing.title}</h4>
-              <img src="${listing.image}" style="width: 100%; border-radius: 6px;" />
+              <img src="${listing.images[0]}" style="width: 100%; border-radius: 6px;" />
               <p>${listing.description}</p>
             </div>
           `
@@ -248,10 +395,11 @@
           (!filter.state || listing.state === filter.state) &&
           (!filter.city || listing.city === filter.city)
         )
-        .forEach(listing => {
-          container.innerHTML += `
-            <div class="listing">
-              <img src="${listing.image}" alt="${listing.title}" />
+        .forEach((listing, index) => {
+          const img = listing.images[0] || "";
+          const listingHTML = `
+            <div class="listing" data-index="${index}" tabindex="0" role="button" aria-pressed="false" aria-label="View details of ${listing.title}">
+              <img src="${img}" alt="${listing.title}" />
               <div class="listing-content">
                 <h3>${listing.title}</h3>
                 <p>${listing.description}</p>
@@ -259,8 +407,136 @@
               </div>
             </div>
           `;
+          container.insertAdjacentHTML("beforeend", listingHTML);
         });
+
+      // Add click and keyboard listeners to open modal
+      document.querySelectorAll(".listing").forEach(elem => {
+        elem.addEventListener("click", () => {
+          const idx = parseInt(elem.getAttribute("data-index"), 10);
+          openModal(idx);
+        });
+        elem.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            const idx = parseInt(elem.getAttribute("data-index"), 10);
+            openModal(idx);
+          }
+        });
+      });
     }
+
+    // Modal elements
+    const modal = document.getElementById("listingModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDetails = document.getElementById("modalDetails");
+    const slidesContainer = document.getElementById("slidesContainer");
+    const modalCloseBtn = document.getElementById("modalCloseBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function openModal(index) {
+      currentSlide = 0;
+      currentListingIndex = index;
+      const listing = listings[index];
+      modalTitle.textContent = listing.title;
+      modalDetails.innerHTML = `
+        <p>${listing.description}</p>
+        <p><strong>${listing.city}, ${listing.state}</strong></p>
+      `;
+
+      slidesContainer.innerHTML = "";
+      listing.images.forEach((imgSrc) => {
+        const imgElem = document.createElement("img");
+        imgElem.src = imgSrc;
+        slidesContainer.appendChild(imgElem);
+      });
+      updateSlide();
+
+      modal.classList.add("active");
+      modalCloseBtn.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove("active");
+    }
+
+    function updateSlide() {
+      const slideWidth = slidesContainer.clientWidth;
+      slidesContainer.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (currentSlide < slidesContainer.children.length - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    });
+
+    modalCloseBtn.addEventListener("click", closeModal);
+
+    // Close modal if clicking outside modal content
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Swipe detection for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    slidesContainer.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    slidesContainer.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleGesture();
+    });
+
+    function handleGesture() {
+      const swipeDistance = touchEndX - touchStartX;
+      const minSwipeDistance = 50;
+
+      if (swipeDistance > minSwipeDistance) {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlide();
+        }
+      } else if (swipeDistance < -minSwipeDistance) {
+        if (currentSlide < slidesContainer.children.length - 1) {
+          currentSlide++;
+          updateSlide();
+        }
+      }
+    }
+
+    // Keyboard navigation in modal
+    document.addEventListener("keydown", (e) => {
+      if (!modal.classList.contains("active")) return;
+
+      if (e.key === "ArrowLeft") {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlide();
+        }
+      } else if (e.key === "ArrowRight") {
+        if (currentSlide < slidesContainer.children.length - 1) {
+          currentSlide++;
+          updateSlide();
+        }
+      } else if (e.key === "Escape") {
+        closeModal();
+      }
+    });
 
     document.getElementById("stateFilter").addEventListener("change", () => {
       const state = document.getElementById("stateFilter").value;
@@ -275,9 +551,9 @@
     });
   </script>
 
-  <!-- Replace YOUR_API_KEY with your actual Google Maps API key -->
+  <!-- Replace YOUR_API_KEY below with your actual Google Maps API key -->
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByEsLB2qwxw7UMEhc8Hf9e_TCwp35OpQs&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByEsLB2qwxw7UMEhc8Hf9e_TCwp35OpQs&callback=initMap"></script>
   </script>
 
 </body>
