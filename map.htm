@@ -12,8 +12,10 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
       background: #f4faff;
+      font-family: Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
     }
 
     header {
@@ -36,12 +38,15 @@
 
     .logo {
       width: 60px;
+      height: auto;
+      max-width: 100%;
     }
 
     .hamburger {
       font-size: 2rem;
       cursor: pointer;
       display: none;
+      color: white;
     }
 
     nav ul {
@@ -126,7 +131,7 @@
     .listing {
       background: white;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       cursor: pointer;
       transition: transform 0.2s ease;
@@ -155,11 +160,13 @@
       color: #555;
     }
 
-    /* Modal Styles */
     #listingModal {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
       display: none;
       justify-content: center;
       align-items: center;
@@ -218,7 +225,6 @@
       flex-shrink: 0;
     }
 
-    /* Controls */
     .modal-controls {
       position: absolute;
       top: 50%;
@@ -230,7 +236,7 @@
     }
 
     .modal-controls button {
-      background: rgba(0,0,0,0.4);
+      background: rgba(0, 0, 0, 0.4);
       border: none;
       color: white;
       font-size: 2rem;
@@ -243,7 +249,7 @@
     }
 
     .modal-controls button:hover {
-      background: rgba(0,0,0,0.7);
+      background: rgba(0, 0, 0, 0.7);
     }
 
     #modalCloseBtn {
@@ -260,6 +266,7 @@
     }
   </style>
 </head>
+<body>
 <body>
 
   <header>
@@ -639,5 +646,5 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByEsLB2qwxw7UMEhc8Hf9e_TCwp35OpQs&callback=initMap"></script>
 
 </body>
+</body>
 </html>
-
