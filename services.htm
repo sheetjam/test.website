@@ -1,60 +1,35 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>InSight Services</title>
   <style>
-    /* ========== Reset & Base ========== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body {
-  background: #a5d9ff;
-  font-family: Arial, sans-serif;
-  color: #333;
-  line-height: 1.6;
-}
+    body {
+      background: #a5d9ff;
+      font-family: Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
 
-/* ========== Layout ========== */
-.container {
-  max-width: 600px;
-  margin: auto;
-  padding: 2rem;
-}
+    header {
+      background: linear-gradient(90deg, rgba(0, 119, 204, 1) 0%, rgba(0, 139, 204, 0.87) 38%, rgba(0, 180, 204, 1) 100%);
+      color: #000;
+      padding: 0.5em 1rem;
+    }
 
-main {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1em;
-  padding: 1em;
-}
-
-.content {
-  flex: 3 1 60%;
-  background: #ffffffe8;
-  padding: 1em;
-  border-radius: 5px;
-  font-size: 15px;
-}
-
-.sidebar {
-  flex: 1 1 30%;
-  background: #d9edf7;
-  padding: 1em;
-  border-radius: 5px;
-}
-
-/* ========== Header & Navigation ========== */
-header {
-  background: linear-gradient(90deg, rgba(0, 119, 204, 1) 0%, rgba(0, 139, 204, 0.87) 38%, rgba(0, 180, 204, 1) 100%);
-  color: #000000;
-  padding: 0.5em;
-}
-
-
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
 
     .logo-container {
       display: flex;
@@ -62,360 +37,138 @@ header {
       gap: 1rem;
     }
 
+    .logo {
+      width: 70px;
+      height: auto;
+    }
 
-.logo {
-  width: 70px;
-  height: auto;
-  max-width: 100%;
-}
+    .hamburger {
+      font-size: 2rem;
+      cursor: pointer;
+      display: none;
+      color: #fff;
+    }
 
-.header-top {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-  padding: 1rem;
-}
+    nav {
+      background: #0077cc;
+    }
 
-.hamburger {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 2rem;
-  cursor: pointer;
-  color: #fff;
-  display: none; /* hide by default */
-  z-index: 10;
-}
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 1em;
+      margin: 0;
+      gap: 2rem;
+    }
 
-/* Show hamburger only on mobile */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-}
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      padding: 0.5em;
+      transition: background 0.3s;
+    }
 
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+    }
 
-/* Desktop Navigation */
-nav {
-  background: #0077cc;
-}
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
 
-nav ul {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  padding: 1em;
-  margin: 0;
-  gap: 2rem;
-}
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+        display: none;
+      }
 
-nav li {
-  margin: 0;
-}
+      nav ul.show {
+        display: flex;
+      }
+    }
 
-nav a {
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-  padding: 0.5em;
-  transition: background 0.3s;
-}
+    .services-wrapper {
+      padding: 2em;
+      background: #f5faff;
+    }
 
-nav a:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
-}
+    .intro {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 2em;
+    }
 
-/* Responsive Navigation */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2em;
+    }
 
-  nav {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-  }
+    .service-card {
+      background: white;
+      padding: 1.5em;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: transform 0.2s;
+    }
 
-  nav.show {
-    display: flex;
-  }
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
 
-  nav ul {
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    padding: 0.5rem 0;
-  }
+    .service-icon {
+      width: 60px;
+      height: auto;
+      margin-bottom: 1em;
+    }
 
-  nav li {
-    margin: 0.5rem 0;
-  }
+    .cta {
+      text-align: center;
+      margin-top: 3em;
+      background: #0077cc;
+      color: white;
+      padding: 2em;
+      border-radius: 10px;
+    }
 
-  nav a {
-    padding: 0.75rem;
-    color: #fff;
-  }
-}
+    .cta .btn {
+      background: white;
+      color: #0077cc;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 1em;
+    }
 
-/* ========== Listings ========== */
-.listings-section {
-  padding: 1em;
-}
+    .cta .btn:hover {
+      background: #e6f3ff;
+    }
 
-.listings-top {
-  font-size: 1rem;
-  text-align: center;
-  color: #000;
-  background-color: #ffffffe5;
-  border-radius: 5px;
-  padding: 0.5em;
-  margin-bottom: 1em;
-}
-
-.listing-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1em;
-  justify-content: center;
-}
-
-.listing-card {
-  flex: 1 1 calc(33.333% - 1em);
-  max-width: 350px;
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-/* Tablet: 2 per row */
-@media (max-width: 992px) {
-  .listing-card {
-    flex: 1 1 calc(50% - 1em);
-  }
-}
-
-/* Mobile: 1 per row */
-@media (max-width: 600px) {
-  .listing-card {
-    flex: 1 1 100%;
-    max-width: 90%;
-  }
-}
-
-
-.listing-card:hover {
-  transform: scale(1.01);
-}
-
-.status-label {
-  text-align: center;
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 6px;
-  margin: 0.5em auto;
-  width: fit-content;
-  color: white;
-}
-
-.listing-card.status .status-label {
-  background-color: rgb(175, 175, 175);
-}
-
-/* ========== Image Slider ========== */
-.image-gallery-slider {
-  position: relative;
-  max-width: 100%;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.slider-images {
-  display: flex;
-  transition: transform 0.4s ease;
-}
-
-.slide {
-  min-width: 100%;
-  display: none;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-.slide.active {
-  display: block;
-}
-
-.prev-btn,
-.next-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  font-size: 24px;
-  padding: 8px 12px;
-  cursor: pointer;
-  z-index: 1;
-  border-radius: 50%;
-}
-
-.prev-btn {
-  left: 10px;
-}
-.next-btn {
-  right: 10px;
-}
-
-/* ========== Details ========== */
-.details {
-  padding: 1rem;
-}
-
-.details h2 {
-  margin: 0;
-  font-size: 2rem;
-  color: #2c3e50;
-}
-
-.location {
-  color: #888;
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-}
-
-.description {
-  margin-bottom: 1.5rem;
-  color: #333;
-}
-
-.features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5rem 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.features li {
-  background: #eaf1f8;
-  padding: 0.2rem 0.25rem;
-  border-radius: 5px;
-  font-size: 0.95rem;
-}
-
-.btn {
-  display: inline-block;
-  background: #3498db;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.3s;
-}
-
-.btn:hover {
-  background: #2980b9;
-}
-
-/* ========== Forms ========== */
-form {
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
-
-fieldset {
-  border: none;
-  padding: 0;
-}
-
-legend {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #0077cc;
-  font-weight: bold;
-}
-
-label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: 500;
-}
-
-input[type="text"],
-input[type="email"],
-textarea {
-  width: 100%;
-  padding: 0.75rem;
-  margin-top: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-input[type="submit"] {
-  margin-top: 1.5rem;
-  background-color: #0077cc;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-input[type="submit"]:hover {
-  background-color: #005fa3;
-}
-
-.success-msg,
-.error-msg {
-  display: none;
-  padding: 1rem;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-}
-
-.success-msg {
-  background: #e0ffe0;
-  border: 1px solid #9fe2cfc2;
-  color: #2e7d32;
-}
-
-.error-msg {
-  background: #ffe0e0;
-  border: 1px solid #e57373;
-  color: #b71c1c;
-}
-
-/* ========== Footer ========== */
-footer {
-  background: #333;
-  color: #fff;
-  text-align: center;
-  padding: 1em;
-  margin-top: 1em;
-  font-size: 0.9rem;
-}
-
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1em;
+      font-size: 0.9rem;
+      margin-top: 2em;
+    }
   </style>
+  <script>
+    function toggleNav() {
+      const nav = document.querySelector("nav ul");
+      nav.classList.toggle("show");
+    }
+  </script>
 </head>
 <body>
+
   <header>
     <div class="header-top">
       <div class="logo-container">
@@ -424,52 +177,65 @@ footer {
       </div>
       <div class="hamburger" onclick="toggleNav()">&#9776;</div>
     </div>
-
-    <nav id="myLinks">
+    <nav>
       <ul>
         <li><a href="index.htm">Home</a></li>
         <li><a href="#">Forms</a></li>
-        <li><a href="services.htm">services</a></li>
+        <li><a href="services.htm">Services</a></li>
         <li><a href="map.htm">Locations</a></li>
         <li><a href="contact.htm">Contact</a></li>
       </ul>
     </nav>
-      <main>
-    <section class="content">
-      <h2>Services</h2>
-      <p>Thank you for choosing insight services. Here at insight servicess, we specialize many different 
-        services. We specialize in asset verification,
-        property acquisition, property disposition, and property rehabilitation. </p>
-    </section>
-            <section class="content">
-        <h3>Property inspection</h3>
-        <p>Here at Insight Services, we offer quality property inspections. Having a home inspection is 
-            an important part in your home buying journey. If you would like to know more about this 
-            service, feel free to contact us for more details.
-        </p>
-        </section>
-    <section class="content">
-        <h3>Asset verification</h3>
-        <p>details to be added here</p>
-    </section>
-        <section class="content">
-        <h3>Property acquisition</h3>
-        <p>Here at Insight Services, we specialize in property acquisition. We assist people who are looking
-        to sell their home. If you are looking to make a life change and move to a destination, we are here to help. 
-        If you would like to know more about this service, feel free to contact us for more details.
-        </p>
-    </section>
-        <section class="content">
-        <h3>Property disposition</h3>
-        <p>Here at Insight Services, we sell homes and land in all 50 states. If you are looking for a new home,
-        we are here to help. We have a wide variety of homes to see. If you are interested in purchasing your new home,
-        feel free to contacts us.</p>
-        </section>
-        <section class="content">
-        <h3>Property rehabilitation</h3>
-        <p>Here at Insight Services, we look forward to renovating and making homes like new. If you would like to know 
-            more about this service, feel free to contact us for more details.
-        </p>
-        </section>
-  </main>
   </header>
+
+  <main class="services-wrapper">
+    <section class="intro">
+      <h2>Our Services</h2>
+      <p>At InSight Services, we are committed to making your property journey smooth and successful. Whether you're buying, selling, renovating, or verifying assets, we're here to support you every step of the way.</p>
+    </section>
+
+    <section class="services-grid">
+      <div class="service-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2838/2838912.png" alt="Inspection Icon" class="service-icon">
+        <h3>Property Inspection</h3>
+        <p>Get a comprehensive look at the condition of your future home. Our certified inspectors help ensure peace of mind.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/9073/9073530.png" alt="Asset Verification Icon" class="service-icon">
+        <h3>Asset Verification</h3>
+        <p>Ensure accuracy and transparency with our expert asset verification services. Details tailored to your needs.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/69/69524.png" alt="House Icon" class="service-icon">
+        <h3>Property Acquisition</h3>
+        <p>Looking to sell your home? We simplify the process and help you transition smoothly to your next chapter.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1008/1008910.png" alt="Disposition Icon" class="service-icon">
+        <h3>Property Disposition</h3>
+        <p>Explore a wide selection of homes and land across all 50 states. Let us help you find your next home.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/985/985040.png" alt="Rehabilitation Icon" class="service-icon">
+        <h3>Property Rehabilitation</h3>
+        <p>From outdated to outstanding — we breathe new life into homes and increase their market value.</p>
+      </div>
+    </section>
+
+    <section class="cta">
+      <h3>Need Help Deciding?</h3>
+      <p>Contact us today for a free consultation — let’s explore what InSight Services can do for you.</p>
+      <a href="contact.htm" class="btn">Contact Us</a>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 InSight Services. All rights reserved.
+  </footer>
+
+</body>
+</html>
