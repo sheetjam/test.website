@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Home Listings Map</title>
+  <title>InSight Services - Home Listings</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,19 +12,12 @@
     }
 
     body {
-      background: #a5d9ff;
       font-family: Arial, sans-serif;
-      color: #333;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
+      background: #f4faff;
     }
 
     header {
-      background: linear-gradient(90deg, #0077cc 0%, #008bccde 38%, #00b4cc 100%);
+      background: linear-gradient(90deg, #0077cc 0%, #009bcc 100%);
       color: white;
       padding: 1rem;
     }
@@ -34,164 +27,50 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .logo-container {
       display: flex;
       align-items: center;
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
     .logo {
       width: 60px;
+      height: auto;
     }
 
     .hamburger {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
       font-size: 2rem;
       cursor: pointer;
       display: none;
-      z-index: 10;
       user-select: none;
-    }
-
-    nav {
-      background: #0077cc;
     }
 
     nav ul {
-      display: flex;
       list-style: none;
-      padding: 0.5rem 1rem;
+      display: flex;
       justify-content: center;
+      background: #0077cc;
+      padding: 0.5rem 0;
+      flex-wrap: wrap;
       gap: 1rem;
     }
 
-    nav li a {
+    nav li {
+      margin: 0 1rem;
+    }
+
+    nav a {
       color: white;
       text-decoration: none;
       font-weight: bold;
-      padding: 0.5rem;
     }
 
-    nav li a:hover {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 5px;
-    }
-
-    #map {
-      flex-grow: 1;
-      height: 50vh;
-    }
-
-    .listings {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
-      background: #f5f5f5;
-    }
-
-    .listing {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .listing:hover {
-      transform: scale(1.02);
-    }
-
-    .listing img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .listing .info {
-      padding: 1rem;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 100;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.7);
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal.show {
-      display: flex;
-    }
-
-    .modal-content {
-      max-width: 90%;
-      max-height: 90%;
-      width: 100%;
-      height: 100%;
-      background: white;
-      display: flex;
-      flex-direction: column;
-      border-radius: 10px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .slides-wrapper {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #000;
-      min-height: 300px;
-    }
-
-    #slidesContainer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s ease-in-out;
-      will-change: transform;
-      height: 100%;
-      width: 100%;
-    }
-
-    #slidesContainer img {
-      max-height: 100%;
-      max-width: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      display: block;
-      margin: auto;
-      user-select: none;
-      pointer-events: none;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 2rem;
-      color: #fff;
-      background: rgba(0, 0, 0, 0.5);
-      border: none;
-      cursor: pointer;
-      z-index: 10;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      line-height: 1.6;
+    nav a:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 768px) {
@@ -199,26 +78,203 @@
         display: block;
       }
 
-      nav {
+      nav ul {
         display: none;
         flex-direction: column;
+        width: 100%;
       }
 
-      nav.show {
+      nav ul.show {
         display: flex;
-      }
-
-      nav ul {
-        flex-direction: column;
-        align-items: center;
       }
     }
 
-    @media (min-width: 768px) {
-      .modal-content {
-        max-width: 800px;
-        max-height: 80vh;
-      }
+    .filters {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      background: #e1f0ff;
+      border-radius: 10px;
+      margin: 1rem;
+    }
+
+    .filters select,
+    .filters button {
+      padding: 0.5rem;
+      font-size: 1rem;
+      min-width: 150px;
+      border-radius: 6px;
+      border: 1px solid #0077cc;
+      background: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .filters select:hover,
+    .filters button:hover {
+      background-color: #d4e9ff;
+    }
+
+    #map {
+      height: 400px;
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .listings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .listing {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      outline-offset: 2px;
+    }
+
+    .listing:hover,
+    .listing:focus-visible {
+      transform: scale(1.03);
+      outline: 2px solid #0077cc;
+    }
+
+    .listing img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .listing-content {
+      padding: 1rem;
+    }
+
+    .listing h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .listing p {
+      margin-bottom: 0.5rem;
+      color: #555;
+    }
+
+    /* Modal Styles */
+    #listingModal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    #listingModal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 10px;
+      max-width: 900px;
+      width: 90%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal-header {
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .modal-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .modal-details {
+      padding: 1rem;
+      border-top: 1px solid #ddd;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .slides-wrapper {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #slidesContainer {
+      display: flex;
+      height: 100%;
+      transition: transform 0.3s ease-in-out;
+      will-change: transform;
+    }
+
+    #slidesContainer img {
+      width: 100%;
+      object-fit: contain;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Controls */
+    .modal-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .modal-controls button {
+      background: rgba(0,0,0,0.4);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50%;
+      pointer-events: all;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+
+    .modal-controls button:hover {
+      background: rgba(0,0,0,0.7);
+    }
+
+    #modalCloseBtn {
+      position: absolute;
+      top: 0.3rem;
+      right: 0.5rem;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #333;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10;
     }
   </style>
 </head>
@@ -227,74 +283,160 @@
   <header>
     <div class="header-top">
       <div class="logo-container">
-        <img src="emblem3.png" alt="Logo" class="logo" />
+        <img src="emblem3.png" alt="InSight Services Logo" class="logo" />
         <h3>Where your dream home becomes reality</h3>
       </div>
-      <div class="hamburger" onclick="toggleNav()">&#9776;</div>
+      <div class="hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" role="button" tabindex="0">&#9776;</div>
     </div>
-
-    <nav id="myLinks">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Forms</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Locations</a></li>
-        <li><a href="#">Contact</a></li>
+    <nav>
+      <ul id="navLinks">
+        <li><a href="forms.htm">Forms</a></li>
+        <li><a href="index.htm">Home</a></li>
+        <li><a href="services.htm">Services</a></li>
+        <li><a href="map.htm">Map</a></li>
+        <li><a href="contact.htm">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <div id="map"></div>
+  <div class="filters" aria-label="Filter listings">
+    <select id="stateFilter" aria-label="Filter by state">
+      <option value="">Select State</option>
+      <option value="NY">New York</option>
+      <option value="CA">California</option>
+      <option value="PA">Pennsylvania</option>
+    </select>
 
-  <div class="listings">
-    <div class="listing" onclick="openModal(['house1.jpg', 'house2.jpg'], '2 bed, 1 bath, $900k')">
-      <img src="house1.jpg" alt="House Preview" />
-      <div class="info">
-        <h4>1508c Highpointe Dr, Harrisburg, PA</h4>
-        <p>2 bed, 1 bath, $900k</p>
-      </div>
-    </div>
+    <select id="cityFilter" aria-label="Filter by city">
+      <option value="">Select City</option>
+      <option value="NYC">New York City</option>
+      <option value="LA">Los Angeles</option>
+      <option value="Harrisburg">Harrisburg</option>
+    </select>
+
+    <select id="bedroomsFilter" aria-label="Filter by number of bedrooms">
+      <option value="">Bedrooms</option>
+      <option value="1">1+</option>
+      <option value="2">2+</option>
+      <option value="3">3+</option>
+      <option value="4">4+</option>
+      <option value="5">5+</option>
+    </select>
+
+    <select id="bathroomsFilter" aria-label="Filter by number of bathrooms">
+      <option value="">Bathrooms</option>
+      <option value="1">1+</option>
+      <option value="2">2+</option>
+      <option value="3">3+</option>
+      <option value="4">4+</option>
+    </select>
+
+    <select id="priceMinFilter" aria-label="Minimum price">
+      <option value="">Min Price</option>
+      <option value="100000">$100k</option>
+      <option value="300000">$300k</option>
+      <option value="500000">$500k</option>
+      <option value="700000">$700k</option>
+      <option value="900000">$900k</option>
+      <option value="1000000">$1M</option>
+    </select>
+
+    <select id="priceMaxFilter" aria-label="Maximum price">
+      <option value="">Max Price</option>
+      <option value="300000">$300k</option>
+      <option value="500000">$500k</option>
+      <option value="700000">$700k</option>
+      <option value="900000">$900k</option>
+      <option value="1000000">$1M</option>
+      <option value="2000000">$2M</option>
+    </select>
+
+    <button id="resetFiltersBtn" aria-label="Reset all filters">Reset Filters</button>
   </div>
 
-  <div class="modal" id="modal">
+  <div id="map" aria-label="Home listings map"></div>
+
+  <div class="listings" id="listingsContainer" aria-live="polite" aria-relevant="additions"></div>
+
+  <!-- Modal -->
+  <div id="listingModal" aria-modal="true" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDetails" tabindex="-1">
     <div class="modal-content">
-      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <button id="modalCloseBtn" aria-label="Close modal">&times;</button>
+      <div class="modal-header" id="modalTitle">Listing Title</div>
       <div class="slides-wrapper">
         <div id="slidesContainer"></div>
+        <div class="modal-controls">
+          <button id="prevBtn" aria-label="Previous image">&#10094;</button>
+          <button id="nextBtn" aria-label="Next image">&#10095;</button>
+        </div>
       </div>
+      <div class="modal-details" id="modalDetails"></div>
     </div>
   </div>
 
   <script>
-    function toggleNav() {
-      const nav = document.getElementById("myLinks");
-      nav.classList.toggle("show");
-    }
-
-    const homeListings = [
+    // Listings data, added structured numeric data for price, beds, baths to simplify filtering
+    const listings = [
       {
-        position: { lat: 40.3101352, lng: -76.8738858 },
-        title: "1508c Highpointe Dr, Harrisburg, PA",
-        description: "2 bed, 1 bath, $900k"
+        position: { lat: 40.7128, lng: -74.0060 },
+        title: "NYC Apartment",
+        description: "2 bed, 1 bath, $900k",
+        images: ["tree.png", "testlisting.jpg", "emblem3.png"],
+        city: "NYC",
+        state: "NY",
+        price: 900000,
+        bedrooms: 2,
+        bathrooms: 1
+      },
+      {
+        position: { lat: 34.0522, lng: -118.2437 },
+        title: "LA Condo",
+        description: "3 bed, 2 bath, $1.2M",
+        images: ["treeman.jpg", "tree.png", "emblem3.png"],
+        city: "LA",
+        state: "CA",
+        price: 1200000,
+        bedrooms: 3,
+        bathrooms: 2
+      },
+      {
+        position: { lat: 40.2732, lng: -76.8867 },
+        title: "Harrisburg Home",
+        description: "3 bed, 2 bath, $400k",
+        images: ["treeman.jpg", "tree.png"],
+        city: "Harrisburg",
+        state: "PA",
+        price: 400000,
+        bedrooms: 3,
+        bathrooms: 2
       }
     ];
 
+    let map;
+    let currentSlide = 0;
+    let currentListingIndex = 0;
+
     function initMap() {
-      const centerUS = { lat: 39.8283, lng: -98.5795 };
-      const map = new google.maps.Map(document.getElementById("map"), {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 39.8283, lng: -98.5795 },
         zoom: 4,
-        center: centerUS
       });
 
-      homeListings.forEach(listing => {
+      listings.forEach(listing => {
         const marker = new google.maps.Marker({
           position: listing.position,
-          map: map,
+          map,
           title: listing.title
         });
 
         const infoWindow = new google.maps.InfoWindow({
-          content: `<h3>${listing.title}</h3><p>${listing.description}</p>`
+          content: `
+            <div style="max-width: 200px;">
+              <h4>${listing.title}</h4>
+              <img src="${listing.images[0]}" style="width: 100%; border-radius: 6px;" />
+              <p>${listing.description}</p>
+            </div>
+          `
         });
 
         marker.addListener("click", () => {
@@ -303,27 +445,210 @@
       });
     }
 
-    function openModal(imageArray, details) {
-      const modal = document.getElementById("modal");
-      const container = document.getElementById("slidesContainer");
-      container.innerHTML = ""; // Clear old images
-      imageArray.forEach(src => {
-        const img = document.createElement("img");
-        img.src = src;
-        img.alt = "House image";
-        container.appendChild(img);
+    function toggleNav() {
+      document.getElementById("navLinks").classList.toggle("show");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      displayListings();
+
+      const filters = [
+        "stateFilter",
+        "cityFilter",
+        "bedroomsFilter",
+        "bathroomsFilter",
+        "priceMinFilter",
+        "priceMaxFilter"
+      ];
+
+      filters.forEach(id => {
+        document.getElementById(id).addEventListener("change", applyFilters);
       });
-      modal.classList.add("show");
+
+      document.getElementById("resetFiltersBtn").addEventListener("click", resetFilters);
+    });
+
+    function applyFilters() {
+      const state = document.getElementById("stateFilter").value;
+      const city = document.getElementById("cityFilter").value;
+      const bedrooms = document.getElementById("bedroomsFilter").value;
+      const bathrooms = document.getElementById("bathroomsFilter").value;
+      const priceMin = document.getElementById("priceMinFilter").value;
+      const priceMax = document.getElementById("priceMaxFilter").value;
+
+      displayListings({ state, city, bedrooms, bathrooms, priceMin, priceMax });
+    }
+
+    function resetFilters() {
+      ["stateFilter", "cityFilter", "bedroomsFilter", "bathroomsFilter", "priceMinFilter", "priceMaxFilter"]
+        .forEach(id => {
+          document.getElementById(id).value = "";
+        });
+      displayListings();
+    }
+
+    function displayListings(filter = {}) {
+      const container = document.getElementById("listingsContainer");
+      container.innerHTML = "";
+
+      const filtered = listings.filter(listing => {
+        if (filter.state && listing.state !== filter.state) return false;
+        if (filter.city && listing.city !== filter.city) return false;
+        if (filter.bedrooms && listing.bedrooms < Number(filter.bedrooms)) return false;
+        if (filter.bathrooms && listing.bathrooms < Number(filter.bathrooms)) return false;
+        if (filter.priceMin && listing.price < Number(filter.priceMin)) return false;
+        if (filter.priceMax && listing.price > Number(filter.priceMax)) return false;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p style="text-align:center; font-style: italic; color:#555;">No listings found matching your criteria.</p>`;
+        return;
+      }
+
+      filtered.forEach((listing, index) => {
+        const img = listing.images[0] || "";
+        const listingHTML = `
+          <div class="listing" data-index="${listings.indexOf(listing)}" tabindex="0" role="button" aria-pressed="false" aria-label="View details of ${listing.title}">
+            <img src="${img}" alt="${listing.title}" />
+            <div class="listing-content">
+              <h3>${listing.title}</h3>
+              <p>${listing.description}</p>
+              <p><strong>${listing.city}, ${listing.state}</strong></p>
+            </div>
+          </div>
+        `;
+        container.insertAdjacentHTML("beforeend", listingHTML);
+      });
+
+      // Add listeners to open modal
+      document.querySelectorAll(".listing").forEach(elem => {
+        elem.addEventListener("click", () => {
+          const idx = parseInt(elem.getAttribute("data-index"), 10);
+          openModal(idx);
+        });
+        elem.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            const idx = parseInt(elem.getAttribute("data-index"), 10);
+            openModal(idx);
+          }
+        });
+      });
+    }
+
+    // Modal controls
+    const modal = document.getElementById("listingModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDetails = document.getElementById("modalDetails");
+    const slidesContainer = document.getElementById("slidesContainer");
+    const modalCloseBtn = document.getElementById("modalCloseBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function openModal(index) {
+      currentSlide = 0;
+      currentListingIndex = index;
+      const listing = listings[index];
+      modalTitle.textContent = listing.title;
+      modalDetails.innerHTML = `
+        <p>${listing.description}</p>
+        <p><strong>${listing.city}, ${listing.state}</strong></p>
+      `;
+
+      slidesContainer.innerHTML = "";
+      listing.images.forEach((imgSrc) => {
+        const imgElem = document.createElement("img");
+        imgElem.src = imgSrc;
+        slidesContainer.appendChild(imgElem);
+      });
+      updateSlide();
+
+      modal.classList.add("active");
+      modal.setAttribute("tabindex", "-1");
+      modal.focus();
     }
 
     function closeModal() {
-      document.getElementById("modal").classList.remove("show");
+      modal.classList.remove("active");
     }
+
+    function updateSlide() {
+      const slideWidth = slidesContainer.clientWidth;
+      slidesContainer.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (currentSlide < slidesContainer.children.length - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    });
+
+    modalCloseBtn.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    slidesContainer.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    slidesContainer.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleGesture();
+    });
+
+    function handleGesture() {
+      const swipeDistance = touchEndX - touchStartX;
+      const minSwipeDistance = 50;
+
+      if (swipeDistance > minSwipeDistance) {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlide();
+        }
+      } else if (swipeDistance < -minSwipeDistance) {
+        if (currentSlide < slidesContainer.children.length - 1) {
+          currentSlide++;
+          updateSlide();
+        }
+      }
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (!modal.classList.contains("active")) return;
+
+      if (e.key === "ArrowLeft") {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlide();
+        }
+      } else if (e.key === "ArrowRight") {
+        if (currentSlide < slidesContainer.children.length - 1) {
+          currentSlide++;
+          updateSlide();
+        }
+      } else if (e.key === "Escape") {
+        closeModal();
+      }
+    });
   </script>
 
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-  </script>
-
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByEsLB2qwxw7UMEhc8Hf9e_TCwp35OpQs&callback=initMap"></script>
 </body>
 </html>
